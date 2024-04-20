@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -58,8 +58,7 @@ public class TupleDesc_B implements TupleDesc<TupleDesc_B> {
 			data[index] &= ~(1 << (bit%32));
 	}
 
-	@Override
-	public void setTo( TupleDesc_B source ) {
+	@Override public void setTo( TupleDesc_B source ) {
 		if (data.length < source.data.length)
 			throw new IllegalArgumentException("Data array is too small to store the source array.");
 
@@ -67,16 +66,25 @@ public class TupleDesc_B implements TupleDesc<TupleDesc_B> {
 		System.arraycopy(source.data, 0, data, 0, source.data.length);
 	}
 
-	@Override
-	public double getDouble( int index ) {
+	@Override public double getDouble( int index ) {
 		if (isBitTrue(index))
 			return 1;
 		else
 			return -1;
 	}
 
-	@Override
-	public int size() {
+	@Override public boolean isEquals( TupleDesc_B tuple ) {
+		if (size() != tuple.size())
+			return false;
+
+		for (int i = 0; i < size(); i++) {
+			if (data[i] != tuple.data[i])
+				return false;
+		}
+		return true;
+	}
+
+	@Override public int size() {
 		return numBits;
 	}
 

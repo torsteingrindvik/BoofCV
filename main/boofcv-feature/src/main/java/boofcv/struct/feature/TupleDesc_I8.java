@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -41,6 +41,17 @@ public abstract class TupleDesc_I8<TD extends TupleDesc_I8> implements TupleDesc
 
 	public void fill( byte value ) {
 		Arrays.fill(this.data, value);
+	}
+
+	@Override public boolean isEquals( TD tuple ) {
+		if (size() != tuple.size())
+			return false;
+
+		for (int i = 0; i < size(); i++) {
+			if (data[i] != tuple.data[i])
+				return false;
+		}
+		return true;
 	}
 
 	@Override

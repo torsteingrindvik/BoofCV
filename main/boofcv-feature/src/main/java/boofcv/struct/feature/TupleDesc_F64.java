@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -59,6 +59,17 @@ public class TupleDesc_F64 implements TupleDesc<TupleDesc_F64> {
 
 	@Override public /**/double /**/getDouble( int index ) {
 		return data[index];
+	}
+
+	@Override public boolean isEquals( TupleDesc_F64 tuple ) {
+		if (size() != tuple.size())
+			return false;
+
+		for (int i = 0; i < size(); i++) {
+			if (data[i] != tuple.data[i])
+				return false;
+		}
+		return true;
 	}
 
 	@Override public int size() {

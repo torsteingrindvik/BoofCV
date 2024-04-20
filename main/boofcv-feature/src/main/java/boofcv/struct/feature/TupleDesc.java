@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -42,6 +42,9 @@ public interface TupleDesc<T extends TupleDesc> extends Serializable {
 	 * @return Element's value as a double
 	 */
 	double getDouble( int index );
+
+	/** Returns true if the type data structure are identical */
+	boolean isEquals( T tuple );
 
 	/**
 	 * Number of elements in the tuple.

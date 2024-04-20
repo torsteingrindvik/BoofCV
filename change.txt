@@ -6,6 +6,13 @@ Version Meaning: <compatible>.<feature>.<bug fix>
 - Second digit indicates if a new feature was added and/or if only a minor refactoring has been done
 - Last digit always indicates a bug fix and other minor changes
 
+---------------------
+Date    : 2024
+Version : 1.1.4
+
+- TupleDesc
+  * Added isEquals()
+
 ---------------------------------------------
 Date    : 2024/Feb/24
 Version : 1.1.3
