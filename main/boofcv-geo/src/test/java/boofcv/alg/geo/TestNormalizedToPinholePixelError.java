@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -30,7 +30,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestNormalizedToPinholePixelError extends BoofStandardJUnit {
-
 	// intrinsic camera parameters
 	double fx = 60;
 	double skew = 0.01;
@@ -61,7 +60,7 @@ public class TestNormalizedToPinholePixelError extends BoofStandardJUnit {
 		n1 = PerspectiveOps.convertPixelToNorm(K, p1, null);
 	}
 
-	@Test void usingPixels() {
+	@Test void errorPixels() {
 		var alg = new NormalizedToPinholePixelError(fx, fy, skew);
 
 		double expected = p0.distance2(p1);
@@ -70,12 +69,32 @@ public class TestNormalizedToPinholePixelError extends BoofStandardJUnit {
 		assertEquals(expected, found, 1e-8);
 	}
 
-	@Test void usingDoubles() {
+	@Test void errorDoubles() {
 		var alg = new NormalizedToPinholePixelError(fx, fy, skew);
 
 		double expected = p0.distance2(p1);
 		double found = alg.errorSq(n0.x, n0.y, n1.x, n1.y);
 
 		assertEquals(expected, found, 1e-8);
+	}
+
+	@Test void residualPixels() {
+		var alg = new NormalizedToPinholePixelError(fx, fy, skew);
+
+		var found = new Point2D_F64();
+		alg.residuals(n0, n1, found);
+
+		assertEquals(p1.x - p0.x, found.x, 1e-8);
+		assertEquals(p1.y - p0.y, found.y, 1e-8);
+	}
+
+	@Test void residualDoubles() {
+		var alg = new NormalizedToPinholePixelError(fx, fy, skew);
+
+		var found = new Point2D_F64();
+		alg.residuals(n0.x, n0.y, n1.x, n1.y, found);
+
+		assertEquals(p1.x - p0.x, found.x, 1e-8);
+		assertEquals(p1.y - p0.y, found.y, 1e-8);
 	}
 }

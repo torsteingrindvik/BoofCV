@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -64,5 +64,27 @@ public class NormalizedToPinholePixelError {
 		dy *= fy;
 
 		return dx*dx + dy*dy;
+	}
+
+	/**
+	 * Computes the residuals along x and y
+	 */
+	public void residuals( Point2D_F64 a, Point2D_F64 b, Point2D_F64 error ) {
+		double dy = (b.y - a.y);
+		double dx = (b.x - a.x)*fx + dy*skew;
+		dy *= fy;
+
+		error.setTo(dx, dy);
+	}
+
+	/**
+	 * Computes the residuals along x and y
+	 */
+	public void residuals( double a_x, double a_y, double b_x, double b_y, Point2D_F64 error ) {
+		double dy = (b_y - a_y);
+		double dx = (b_x - a_x)*fx + dy*skew;
+		dy *= fy;
+
+		error.setTo(dx, dy);
 	}
 }
