@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -107,6 +107,14 @@ public class RansacCalibrated<Model, Point>
 
 	@Override public Class<Model> getModelType() {
 		return fitter.getModelType();
+	}
+
+	public void setSampleSize( int sampleSize ) {
+		fitter.setSampleSize(sampleSize);
+	}
+
+	public void setThresholdFit( double thresholdFit ) {
+		fitter.setThresholdFit(thresholdFit);
 	}
 
 	@Override
