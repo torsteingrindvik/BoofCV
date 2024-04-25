@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -127,7 +127,8 @@ public class RecognitionVocabularyTreeNister2006<Point> implements VerbosePrint 
 
 		// Removes the old leaf data and replaces it with empty structures
 		invertedFiles.reset();
-		invertedFiles.resize(tree.nodes.size);
+		if (tree != null)
+			invertedFiles.resize(tree.nodes.size);
 	}
 
 	/**

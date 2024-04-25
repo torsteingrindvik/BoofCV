@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -120,6 +120,13 @@ public abstract class GenericFeatureSceneRecognitionChecks<TD extends TupleDesc<
 		// See if clearing the DB works
 		alg.clearDatabase();
 		assertFalse(alg.query(getFeatures(1, images), ( id ) -> true, 3, matches));
+	}
+
+	/**
+	 * Test added after a bunch was found where it would blow up if you cleared the database without anything in it
+	 */
+	@Test void clearDatabase_empty() {
+		createAlg().clearDatabase();
 	}
 
 	private FeatureSceneRecognition.Features<TD> getFeatures( int imageIdx, List<List<TD>> images ) {
