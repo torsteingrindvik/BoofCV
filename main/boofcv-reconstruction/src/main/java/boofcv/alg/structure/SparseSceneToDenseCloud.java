@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -30,6 +30,7 @@ import georegression.struct.point.Point3D_F64;
 import gnu.trove.map.TIntObjectMap;
 import lombok.Getter;
 import org.ddogleg.struct.DogArray_I32;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -68,7 +69,8 @@ public class SparseSceneToDenseCloud<T extends ImageGray<T>> {
 	 * @param lookUpImages Used to lookup images by name
 	 * @return true if successful or false if it failed
 	 */
-	public boolean process( SceneStructureMetric scene, SceneObservations observations,
+	public boolean process( SceneStructureMetric scene,
+							@Nullable SceneObservations observations,
 							TIntObjectMap<String> viewIdx_to_ImageID,
 							LookUpImages lookUpImages ) {
 		// reset variables
