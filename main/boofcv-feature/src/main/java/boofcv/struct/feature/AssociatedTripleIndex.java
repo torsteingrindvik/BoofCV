@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -41,18 +41,24 @@ public class AssociatedTripleIndex {
 		this.c = c;
 	}
 
-	public AssociatedTripleIndex() {}
+	public AssociatedTripleIndex() {reset();}
 
-	public void setTo( int a, int b, int c ) {
+	public AssociatedTripleIndex setTo( int a, int b, int c ) {
 		this.a = a;
 		this.b = b;
 		this.c = c;
+		return this;
 	}
 
-	public void setTo( AssociatedTripleIndex original ) {
+	public AssociatedTripleIndex setTo( AssociatedTripleIndex original ) {
 		this.a = original.a;
 		this.b = original.b;
 		this.c = original.c;
+		return this;
+	}
+
+	public void reset() {
+		a = b = c = -1;
 	}
 
 	public AssociatedTripleIndex copy() {
