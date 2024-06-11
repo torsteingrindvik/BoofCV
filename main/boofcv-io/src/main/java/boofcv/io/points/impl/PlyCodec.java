@@ -673,7 +673,7 @@ public class PlyCodec {
 			}
 
 			@Override public boolean isVertexNormals() {
-				return mesh.vertexNormals.size() >= 0;
+				return mesh.vertexNormals.size() > 0;
 			}
 
 			@Override public void getVertex( int which, Point3D_F64 vertex ) {mesh.vertexes.getCopy(which, vertex);}
