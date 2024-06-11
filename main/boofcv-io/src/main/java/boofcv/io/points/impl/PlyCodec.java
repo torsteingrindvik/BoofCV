@@ -48,7 +48,7 @@ import java.util.Locale;
 public class PlyCodec {
 	public static void saveAscii( PlyWriter data, Writer outputWriter ) throws IOException {
 		writeAsciiHeader(data.getVertexCount(), data.getPolygonCount(), data.isColor(), data.isTextured(),
-				data.isVertexNormals(), outputWriter);
+				data.getTextureName(), data.isVertexNormals(), outputWriter);
 
 		boolean color = data.isColor();
 
@@ -94,7 +94,8 @@ public class PlyCodec {
 		outputWriter.flush();
 	}
 
-	public static void saveMeshAscii( VertexMesh mesh, @Nullable DogArray_I32 colorRGB, Writer outputWriter ) throws IOException {
+	public static void saveMeshAscii( VertexMesh mesh, @Nullable DogArray_I32 colorRGB
+			, Writer outputWriter ) throws IOException {
 		saveAscii(wrapMeshForWriting(mesh, colorRGB), outputWriter);
 	}
 
@@ -103,11 +104,17 @@ public class PlyCodec {
 	}
 
 	private static void writeAsciiHeader( int vertexCount, int triangleCount, boolean hasColor, boolean hasTexture,
-										  boolean hasNormals, Writer outputWriter )
+										  String textureName, boolean hasNormals, Writer outputWriter )
 			throws IOException {
 		outputWriter.write("ply\n");
 		outputWriter.write("format ascii 1.0\n");
 		outputWriter.write("comment Created using BoofCV!\n");
+		if (textureName.isEmpty() && hasTexture) {
+			System.err.println("Texture file name not specified and it has texture coordinates");
+		}
+		if (!textureName.isEmpty())
+			outputWriter.write("comment TextureFile " + textureName + "\n");
+
 		outputWriter.write("element vertex " + vertexCount + "\n" +
 				"property float x\n" +
 				"property float y\n" +
@@ -159,7 +166,8 @@ public class PlyCodec {
 	 * @param saveAsFloat if true it will save it as a 4-byte float and if false as an 8-byte double
 	 * @param outputWriter Stream it will write to
 	 */
-	public static void saveMeshBinary( VertexMesh mesh, @Nullable DogArray_I32 colorRGB,
+	public static void saveMeshBinary( VertexMesh mesh,
+									   @Nullable DogArray_I32 colorRGB,
 									   ByteOrder order, boolean saveAsFloat, OutputStream outputWriter )
 			throws IOException {
 		saveBinary(wrapMeshForWriting(mesh, colorRGB), order, saveAsFloat, outputWriter);
@@ -170,7 +178,7 @@ public class PlyCodec {
 		String format = "UTF-8";
 		int dataLength = saveAsFloat ? 4 : 8;
 		writeBinaryHeader(data.getVertexCount(), data.getPolygonCount(), order, data.isColor(),
-				data.isTextured(), data.isVertexNormals(),
+				data.isTextured(), data.isVertexNormals(), data.getTextureName(),
 				saveAsFloat, format, outputWriter);
 
 		boolean color = data.isColor();
@@ -248,7 +256,7 @@ public class PlyCodec {
 	}
 
 	private static void writeBinaryHeader( int vertexCount, int triangleCount, ByteOrder order, boolean hasColor,
-										   boolean hasTexture, boolean hasVertexNormals,
+										   boolean hasTexture, boolean hasVertexNormals, String textureName,
 										   boolean saveAsFloat, String format, OutputStream outputWriter )
 			throws IOException {
 		String dataType = saveAsFloat ? "float" : "double";
@@ -260,6 +268,13 @@ public class PlyCodec {
 		};
 		outputWriter.write(("format binary_" + orderStr + "_endian 1.0\n").getBytes(format));
 		outputWriter.write("comment Created using BoofCV!\n".getBytes(format));
+
+		if (textureName.isEmpty() && hasTexture) {
+			System.err.println("Texture file name not specified and it has texture coordinates");
+		}
+		if (!textureName.isEmpty())
+			outputWriter.write(("comment TextureFile " + textureName + "\n").getBytes(format));
+
 		outputWriter.write(("element vertex " + vertexCount + "\n").getBytes(format));
 		outputWriter.write((
 				"property " + dataType + " x\n" +
@@ -292,14 +307,7 @@ public class PlyCodec {
 
 	private static String readNextPly( InputStream reader, boolean failIfNull, StringBuilder buffer ) throws IOException {
 		String line = UtilIO.readLine(reader, buffer);
-		while (!line.isEmpty()) {
-			if (line.startsWith("comment"))
-				line = UtilIO.readLine(reader, buffer);
-			else {
-				return line;
-			}
-		}
-		if (failIfNull)
+		if (line.isEmpty() && failIfNull)
 			throw new IOException("Unexpected end of file");
 		return line;
 	}
@@ -314,6 +322,15 @@ public class PlyCodec {
 		line = readNextPly(input, true, buffer);
 		boolean previousVertex = false;
 		while (!line.isEmpty()) {
+			if (line.startsWith("comment")) {
+				if (line.contains("TextureFile")) {
+					int start = "comment TextureFile ".length();
+					header.textureName = line.substring(start);
+				}
+				line = readNextPly(input, true, buffer);
+				continue;
+			}
+
 			if (line.equals("end_header"))
 				break;
 			String[] words = line.split("\\s+");
@@ -402,6 +419,8 @@ public class PlyCodec {
 
 			@Override public void addPolygon( int[] indexes, int offset, int length ) {}
 
+			@Override public void setTextureName( String textureName ) {}
+
 			@Override public void addTexture( int count, float[] coor ) {}
 		});
 	}
@@ -429,6 +448,10 @@ public class PlyCodec {
 				mesh.indexes.addAll(indexes, offset, offset + length);
 			}
 
+			@Override public void setTextureName( String textureName ) {
+				mesh.textureName = textureName;
+			}
+
 			@Override public void addTexture( int count, float[] coor ) {
 				mesh.addTexture(count, coor);
 			}
@@ -445,6 +468,7 @@ public class PlyCodec {
 			throw new IOException("Format is never specified");
 
 		output.initialize(header.vertexCount, header.triangleCount, header.rgb);
+		output.setTextureName(header.textureName);
 
 		switch (header.format) {
 			case ASCII -> readAscii(output, input, header);
@@ -676,6 +700,10 @@ public class PlyCodec {
 				return mesh.vertexNormals.size() > 0;
 			}
 
+			@Override public String getTextureName() {
+				return mesh.textureName;
+			}
+
 			@Override public void getVertex( int which, Point3D_F64 vertex ) {mesh.vertexes.getCopy(which, vertex);}
 
 			@Override public void getVertexNormal( int which, GeoTuple3D_F64<?> normal ) {
@@ -725,6 +753,8 @@ public class PlyCodec {
 
 			@Override public boolean isVertexNormals() {return false;}
 
+			@Override public String getTextureName() {return "";}
+
 			@Override public void getVertex( int which, Point3D_F64 vertex ) {cloud.get(which, vertex);}
 
 			@Override public void getVertexNormal( int which, GeoTuple3D_F64<?> normal ) {}
@@ -747,6 +777,7 @@ public class PlyCodec {
 		boolean normals = false;
 		List<PropertyList> properties = new ArrayList<>();
 		Format format = Format.ASCII;
+		String textureName = "";
 	}
 
 	private static class PropertyList {

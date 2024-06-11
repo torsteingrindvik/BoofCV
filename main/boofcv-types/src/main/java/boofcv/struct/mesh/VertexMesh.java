@@ -55,6 +55,9 @@ public class VertexMesh {
 	/** Optional precomputed normal for each face */
 	public final PackedArrayPoint3D_F32 faceNormals = new PackedArrayPoint3D_F32();
 
+	/** Name of the texture file associated with this mesh */
+	public String textureName = "";
+
 	{
 		offsets.add(0);
 	}
@@ -183,6 +186,7 @@ public class VertexMesh {
 		this.texture.setTo(src.texture);
 		this.vertexNormals.setTo(src.vertexNormals);
 		this.faceNormals.setTo(src.faceNormals);
+		this.textureName = src.textureName;
 		return this;
 	}
 
@@ -194,6 +198,7 @@ public class VertexMesh {
 		vertexNormals.reset();
 		faceNormals.reset();
 		offsets.add(0);
+		textureName = "";
 	}
 
 	/**

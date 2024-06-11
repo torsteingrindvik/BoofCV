@@ -40,6 +40,9 @@ public interface PlyWriter {
 	/** True if vertexes have normal vectors */
 	boolean isVertexNormals();
 
+	/** Name of textured map file. Return an empty string if there is none. */
+	String getTextureName();
+
 	void getVertex( int which, Point3D_F64 vertex );
 
 	void getVertexNormal( int which, GeoTuple3D_F64<?> normal );

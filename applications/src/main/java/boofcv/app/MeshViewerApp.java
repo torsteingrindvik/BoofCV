@@ -73,27 +73,12 @@ public class MeshViewerApp {
 
 		// See if there should be a texture mapped file
 		InterleavedU8 textureImage = null;
-		escape:if (mesh.texture.size() > 0) {
-			System.out.println("Loading texture image");
-			String name = FilenameUtils.getBaseName(file.getName());
-			// try to load an image with the same basename
-			File[] children = file.getParentFile().listFiles();
-			if (children == null) {
-				break escape;
-			}
-
-			for (File child : children) {
-				// see if this file starts with the same name as the mesh file
-				if (!child.getName().startsWith(name))
-					continue;
-
-				// skip if it's not an image
-				if (!UtilImageIO.isImage(child))
-					continue;
-
-				textureImage = UtilImageIO.loadImage(child, true, ImageType.IL_U8);
-				if (textureImage != null)
-					break;
+		if (mesh.texture.size() > 0) {
+			if (mesh.textureName.isEmpty()) {
+				System.err.println("Texture file was not encoded. Clearing texture coordinates.");
+				mesh.texture.reset();
+			} else {
+				textureImage = UtilImageIO.loadImage(new File(file.getParentFile(), mesh.textureName), true, ImageType.IL_U8);
 			}
 		}
 

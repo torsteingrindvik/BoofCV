@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -382,7 +382,7 @@ public class DemoThreeViewStereoApp<TD extends TupleDesc<TD>> extends Demonstrat
 		if (controls.scaleChanged || controls.featuresChanged) {
 			reprocessInput();
 		} else {
-			System.out.println("assocChange="+controls.assocChanged+" stereoChanged="+controls.stereoChanged);
+			System.out.println("assocChange=" + controls.assocChanged + " stereoChanged=" + controls.stereoChanged);
 
 			exceptionOccurred = false;
 			boolean skipAssociate = false;
@@ -401,7 +401,7 @@ public class DemoThreeViewStereoApp<TD extends TupleDesc<TD>> extends Demonstrat
 			boolean _assoc = skipAssociate;
 			boolean _struct = skipSparseStructure;
 
-			System.out.println("skipAssociate="+skipAssociate+" skipSparseStructure="+skipSparseStructure);
+			System.out.println("skipAssociate=" + skipAssociate + " skipSparseStructure=" + skipSparseStructure);
 
 			new Thread(() -> safeProcessImages(_assoc, _struct)).start();
 		}
@@ -876,7 +876,7 @@ public class DemoThreeViewStereoApp<TD extends TupleDesc<TD>> extends Demonstrat
 		return disparity;
 	}
 
-	public void updateCloudVisuals(boolean repaint) {
+	public void updateCloudVisuals( boolean repaint ) {
 		double d = leftToRight.getT().norm();
 		controls.controlCloud.configure(guiPointCloud, d*10, d/2.0);
 		if (repaint)

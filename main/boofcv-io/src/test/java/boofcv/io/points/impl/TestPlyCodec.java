@@ -139,6 +139,7 @@ class TestPlyCodec extends BoofStandardJUnit {
 	@Test void encode_decode_mesh_binary() throws IOException {
 		for (var endian : new ByteOrder[]{ByteOrder.LITTLE_ENDIAN, ByteOrder.BIG_ENDIAN}) {
 			var mesh = new VertexMesh();
+			mesh.textureName = "foo";
 			mesh.offsets.add(0);
 			int numVertexes = 10;
 			for (int i = 0; i < numVertexes; i++) {
@@ -191,5 +192,22 @@ class TestPlyCodec extends BoofStandardJUnit {
 				assertEquals(0.0f, mesh.texture.getTemp(i).distance(mesh.texture.getTemp(i)), UtilEjml.TEST_F32);
 			}
 		}
+	}
+
+	/**
+	 * Makes sure it saves and can read the texture map image name
+	 */
+	@Test void textureName() throws IOException {
+		var mesh = new VertexMesh();
+		mesh.textureName = "foo";
+
+		var output = new ByteArrayOutputStream();
+		PlyCodec.saveMeshBinary(mesh, null, ByteOrder.BIG_ENDIAN, true, output);
+
+		var input = new ByteArrayInputStream(output.toByteArray());
+		var foundMesh = new VertexMesh();
+		PlyCodec.readMesh(input, foundMesh, new DogArray_I32());
+
+		assertEquals("foo", foundMesh.textureName);
 	}
 }

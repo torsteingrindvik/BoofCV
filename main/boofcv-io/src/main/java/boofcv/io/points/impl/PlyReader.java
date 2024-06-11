@@ -32,6 +32,8 @@ public interface PlyReader {
 
 	void addPolygon( int[] indexes, int offset, int length );
 
+	void setTextureName( String textureName );
+
 	/**
 	 * Adds coordinates for texture in the ply file
 	 *

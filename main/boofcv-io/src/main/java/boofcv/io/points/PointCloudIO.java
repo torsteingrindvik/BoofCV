@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -59,7 +59,11 @@ public class PointCloudIO {
 		}
 	}
 
-	public static void save3D( Format format, VertexMesh mesh, @Nullable DogArray_I32 colorRGB, OutputStream outputStream )
+	/**
+	 * Saves a mesh.
+	 */
+	public static void save3D( Format format, VertexMesh mesh, @Nullable DogArray_I32 colorRGB,
+							   OutputStream outputStream )
 			throws IOException {
 		switch (format) {
 			case PLY -> PlyCodec.saveMeshBinary(mesh, colorRGB, ByteOrder.BIG_ENDIAN, false, outputStream);

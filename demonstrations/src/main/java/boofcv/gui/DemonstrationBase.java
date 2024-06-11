@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -46,6 +46,7 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -506,7 +507,7 @@ public abstract class DemonstrationBase extends JPanel {
 
 		for (int i = 0; i < files.length; i++) {
 			File f = files[i];
-			String name = f.getName().toLowerCase();
+			String name = f.getName().toLowerCase(Locale.US);
 			if (inputMethod == InputMethod.IMAGE) {
 				if (!f.isFile())
 					continue;
