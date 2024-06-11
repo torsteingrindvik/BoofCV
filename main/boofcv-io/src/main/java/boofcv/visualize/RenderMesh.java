@@ -301,36 +301,35 @@ public class RenderMesh implements VerbosePrint {
 	 * @param polyText Texture coordinates of the mesh
 	 */
 	void projectSurfaceTexture( FastAccess<Point3D_F64> mesh, Polygon2D_F64 polyProj, Polygon2D_F32 polyText ) {
+
+		// Scale factor to normalize image pixels from 0 to 1.0
+		float scale = Math.max(intrinsics.width, intrinsics.height);
+
 		// If the mesh has more than 3 sides, break it up into triangles using the first vertex as a pivot
 		// This works because the mesh has to be convex
 		for (int vertC = 2; vertC < polyProj.size(); vertC++) {
 			int vertA = 0;
 			int vertB = vertC - 1;
 
+			// Get depth at each vertex
 			float Z0 = (float)mesh.get(vertA).z;
 			float Z1 = (float)mesh.get(vertB).z;
 			float Z2 = (float)mesh.get(vertC).z;
 
-			Point2D_F64 r0 = polyProj.get(vertA);
-			Point2D_F64 r1 = polyProj.get(vertB);
-			Point2D_F64 r2 = polyProj.get(vertC);
+			// Scale the pixel coordinates for numerical issues
+			float ax = (float)polyProj.get(vertA).x/scale;
+			float ay = (float)polyProj.get(vertA).y/scale;
+			float bx = (float)polyProj.get(vertB).x/scale;
+			float by = (float)polyProj.get(vertB).y/scale;
+			float cx = (float)polyProj.get(vertC).x/scale;
+			float cy = (float)polyProj.get(vertC).y/scale;
 
-			// Pre-compute part of Barycentric Coordinates
-			double x0 = r2.x - r0.x;
-			double y0 = r2.y - r0.y;
-			double x1 = r1.x - r0.x;
-			double y1 = r1.y - r0.y;
-
-			double d00 = x0*x0 + y0*y0;
-			double d01 = x0*x1 + y0*y1;
-			double d11 = x1*x1 + y1*y1;
-
-			double denom = d00*d11 - d01*d01;
+			float area = edgeFunction(ax, ay, bx, by, cx, cy);
 
 			// Compute coordinate on texture image
-			Point2D_F32 t0 = polyText.get(vertC);
+			Point2D_F32 t0 = polyText.get(vertA);
 			Point2D_F32 t1 = polyText.get(vertB);
-			Point2D_F32 t2 = polyText.get(vertA);
+			Point2D_F32 t2 = polyText.get(vertC);
 
 			// Do the polygon intersection with the triangle in question only
 			workTri.get(0).setTo(polyProj.get(vertA));
@@ -344,9 +343,10 @@ public class RenderMesh implements VerbosePrint {
 
 			// Go through all pixels and see if the points are inside the polygon. If so
 			for (int pixelY = aabb.y0; pixelY < aabb.y1; pixelY++) {
-				double y2 = pixelY - r0.y;
+				float py = pixelY/scale;
 
 				for (int pixelX = aabb.x0; pixelX < aabb.x1; pixelX++) {
+					float px = pixelX/scale;
 
 					point.setTo(pixelX, pixelY);
 					if (!Intersection2D_F64.containsConvex(workTri, point))
@@ -355,14 +355,10 @@ public class RenderMesh implements VerbosePrint {
 					// See if this is the closest point appearing at this pixel
 					float pixelDepth = depthImage.unsafe_get(pixelX, pixelY);
 
-					// Compute rest of Barycentric
-					double x2 = pixelX - r0.x;
-					double d20 = x2*x0 + y2*y0;
-					double d21 = x2*x1 + y2*y1;
-
-					float alpha = (float)((d11*d20 - d01*d21)/denom);
-					float beta = (float)((d00*d21 - d01*d20)/denom);
-					float gamma = 1.0f - alpha - beta;
+//					// Compute Barycentric
+					float alpha = edgeFunction(bx, by, cx, cy, px, py)/area;
+					float beta = edgeFunction(cx, cy, ax, ay, px, py)/area;
+					float gamma = edgeFunction(ax, ay, bx, by, px, py)/area;
 
 					// depth of the mesh at this point
 					float depth = alpha*Z0 + beta*Z1 + gamma*Z2;
@@ -371,9 +367,15 @@ public class RenderMesh implements VerbosePrint {
 						continue;
 					}
 
-					float u = alpha*t0.x + beta*t1.x + gamma*t2.x;
-					float v = alpha*t0.y + beta*t1.y + gamma*t2.y;
+					// Perspective Correct Interpolation
+					// the naive interpolation (without 1/z) is affine and has significant distortion.
+					// https://en.wikipedia.org/wiki/Texture_mapping
 
+					float oneOverW = alpha/Z0 + beta/Z1 + gamma/Z2;
+					float u = (alpha*t0.x/Z0 + beta*t1.x/Z1 + gamma*t2.x/Z2)/oneOverW;
+					float v = (alpha*t0.y/Z0 + beta*t1.y/Z1 + gamma*t2.y/Z2)/oneOverW;
+
+					// back to pixel coordinates in the texture image
 					float pixTexX = u*(textureImage.width - 1);
 					float pixTexY = (1.0f - v)*(textureImage.height - 1);
 
@@ -386,6 +388,10 @@ public class RenderMesh implements VerbosePrint {
 				}
 			}
 		}
+	}
+
+	private static float edgeFunction( float x0, float y0, float x1, float y1, float x2, float y2 ) {
+		return (x2 - x0)*(y1 - y0) - (y2 - y0)*(x1 - x0);
 	}
 
 	/**
