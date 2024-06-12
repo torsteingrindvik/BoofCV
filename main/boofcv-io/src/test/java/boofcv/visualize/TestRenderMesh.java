@@ -19,6 +19,7 @@
 package boofcv.visualize;
 
 import boofcv.alg.geo.PerspectiveOps;
+import boofcv.struct.calib.CameraPinholeBrown;
 import boofcv.struct.mesh.VertexMesh;
 import boofcv.testing.BoofStandardJUnit;
 import georegression.struct.point.Point2D_F64;
@@ -51,15 +52,17 @@ public class TestRenderMesh extends BoofStandardJUnit {
 
 		// turn off checking with normals to simply this test
 		alg.setCheckFaceNormal(false);
-		PerspectiveOps.createIntrinsic(300, 200, 90, -1, alg.intrinsics);
+		var intrinsics = new CameraPinholeBrown();
+		PerspectiveOps.createIntrinsic(300, 200, 90, -1, intrinsics);
+		alg.setCamera(intrinsics);
 
 		// Render
 		alg.render(mesh);
 
 		// See if it did anything
 		int count = 0;
-		for (int y = 0; y < alg.intrinsics.height; y++) {
-			for (int x = 0; x < alg.intrinsics.width; x++) {
+		for (int y = 0; y < alg.resolution.height; y++) {
+			for (int x = 0; x < alg.resolution.width; x++) {
 				if (alg.rgbImage.get24(x, y) != 0xFFFFFF)
 					count++;
 			}
@@ -97,7 +100,7 @@ public class TestRenderMesh extends BoofStandardJUnit {
 	 */
 	@Test void projectSurfaceColor() {
 		var alg = new RenderMesh();
-		alg.intrinsics.fsetShape(100, 120);
+		alg.resolution.setTo(100, 120);
 		alg.initializeImages();
 
 		// Polygon of projected shape on to the image. Make is an AABB, but smaller than the one above
@@ -117,8 +120,8 @@ public class TestRenderMesh extends BoofStandardJUnit {
 		// Verify by counting the number of projected points
 		int countDepth = 0;
 		int countRgb = 0;
-		for (int y = 0; y < alg.intrinsics.height; y++) {
-			for (int x = 0; x < alg.intrinsics.width; x++) {
+		for (int y = 0; y < alg.resolution.height; y++) {
+			for (int x = 0; x < alg.resolution.width; x++) {
 				if (alg.depthImage.get(x, y) == 10)
 					countDepth++;
 				if (alg.rgbImage.get24(x, y) != 0xFFFFFF)
@@ -137,7 +140,7 @@ public class TestRenderMesh extends BoofStandardJUnit {
 				return 1;
 			}
 		};
-		alg.intrinsics.fsetShape(100, 120);
+		alg.resolution.setTo(100, 120);
 		alg.initializeImages();
 
 		// Polygon of projected shape on to the image. Make is an AABB, but smaller than the one above
@@ -164,8 +167,8 @@ public class TestRenderMesh extends BoofStandardJUnit {
 		// Verify by counting the number of projected points
 		int countDepth = 0;
 		int countRgb = 0;
-		for (int y = 0; y < alg.intrinsics.height; y++) {
-			for (int x = 0; x < alg.intrinsics.width; x++) {
+		for (int y = 0; y < alg.resolution.height; y++) {
+			for (int x = 0; x < alg.resolution.width; x++) {
 				if (!Float.isNaN(alg.depthImage.get(x, y))) {
 					countDepth++;
 				}

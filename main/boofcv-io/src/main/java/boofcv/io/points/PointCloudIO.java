@@ -27,16 +27,15 @@ import boofcv.struct.Point3dRgbI_F64;
 import boofcv.struct.mesh.VertexMesh;
 import georegression.struct.point.Point3D_F32;
 import georegression.struct.point.Point3D_F64;
+import org.apache.commons.io.FilenameUtils;
 import org.ddogleg.struct.DogArray;
 import org.ddogleg.struct.DogArray_I32;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 /**
  * Code for reading different point cloud formats
@@ -143,6 +142,29 @@ public class PointCloudIO {
 			case PLY -> PlyCodec.readCloud(input, output);
 			case OBJ -> ObjFileCodec.load(input, output);
 			default -> throw new RuntimeException("Unknown format");
+		}
+	}
+
+	/**
+	 * Loads the mesh from a file. File type is determined by the file's extension.
+	 *
+	 * @param file Which file it should load
+	 * @param mesh (Output) storage for the mesh
+	 * @param colors (Output) Storage for vertex colors
+	 */
+	public static void load( File file, VertexMesh mesh, DogArray_I32 colors ) throws IOException {
+		String extension = FilenameUtils.getExtension(file.getName()).toLowerCase(Locale.ENGLISH);
+		var type = switch (extension) {
+			case "ply" -> PointCloudIO.Format.PLY;
+			case "stl" -> PointCloudIO.Format.STL;
+			case "obj" -> PointCloudIO.Format.OBJ;
+			default -> {
+				throw new RuntimeException("Unknown file type: " + extension);
+			}
+		};
+
+		try (var input = new FileInputStream(file)) {
+			PointCloudIO.load(type, input, mesh, colors);
 		}
 	}
 

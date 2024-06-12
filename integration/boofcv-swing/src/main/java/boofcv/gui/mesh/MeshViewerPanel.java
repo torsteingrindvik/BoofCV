@@ -18,11 +18,13 @@
 
 package boofcv.gui.mesh;
 
+import boofcv.alg.distort.pinhole.LensDistortionPinhole;
 import boofcv.alg.geo.PerspectiveOps;
 import boofcv.gui.image.SaveImageOnClick;
 import boofcv.gui.image.VisualizeImageData;
 import boofcv.io.image.ConvertBufferedImage;
 import boofcv.misc.BoofMiscOps;
+import boofcv.struct.calib.CameraPinhole;
 import boofcv.struct.image.GrayF32;
 import boofcv.struct.image.ImageDimension;
 import boofcv.struct.image.InterleavedU8;
@@ -114,6 +116,8 @@ public class MeshViewerPanel extends JPanel implements VerbosePrint, KeyEventDis
 	@Nullable JFrame helpWindow;
 
 	@Nullable PrintStream verbose = null;
+
+	CameraPinhole intrinsics = new CameraPinhole();
 
 	/**
 	 * Convenience constructor that calls {@link #setMesh(VertexMesh, boolean)} and the default constructor.
@@ -303,11 +307,13 @@ public class MeshViewerPanel extends JPanel implements VerbosePrint, KeyEventDis
 				return;
 			}
 
-			PerspectiveOps.createIntrinsic(dimension.width, dimension.height, hfov, -1, renderer.getIntrinsics());
+			PerspectiveOps.createIntrinsic(dimension.width, dimension.height, hfov, -1, intrinsics);
+			var factory = new LensDistortionPinhole(intrinsics);
+			renderer.setCamera(factory, dimension.width, dimension.height);
 		}
 
 		synchronized (controls) {
-			activeControl.setCamera(renderer.getIntrinsics());
+			activeControl.setCamera(intrinsics);
 			renderer.worldToView.setTo(activeControl.getWorldToCamera());
 		}
 

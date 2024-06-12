@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -18,6 +18,7 @@
 
 package boofcv.visualize;
 
+import boofcv.alg.distort.pinhole.LensDistortionPinhole;
 import boofcv.alg.geo.PerspectiveOps;
 import boofcv.struct.calib.CameraPinhole;
 import boofcv.struct.mesh.VertexMesh;
@@ -54,7 +55,7 @@ public class BenchmarkRenderMesh {
 
 		createFlatSquareScene(intrinsics, rand);
 
-		renderer.getIntrinsics().setTo(intrinsics);
+		renderer.setCamera(new LensDistortionPinhole(intrinsics), intrinsics.width, intrinsics.height);
 	}
 
 	private void createFlatSquareScene( CameraPinhole intrinsics, Random rand ) {
