@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -56,8 +56,10 @@ public class TestHelperNister5 extends BoofStandardJUnit {
 
 		HelperNister5 alg = new HelperNister5();
 		alg.setNullSpace(X,Y,Z,W);
-		alg.setupA1(A);
-		alg.setupA2(B);
+		alg.setupA1p1(A);
+		alg.setupA1p2(A);
+		alg.setupA2p1(B);
+		alg.setupA2p2(B);
 
 		DMatrixRMaj Y1 = new DMatrixRMaj(10,1);
 		DMatrixRMaj Y2 = new DMatrixRMaj(10,1);

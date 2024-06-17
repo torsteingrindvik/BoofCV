@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -134,8 +134,10 @@ public class EssentialNister5 {
 	private boolean solveForSolutions( DogArray<DMatrixRMaj> solutions ) {
 		// Construct a linear system based on the 10 constraint equations. See equations 5,6, and 10 .
 		helper.setNullSpace(X, Y, Z, W);
-		helper.setupA1(A1);
-		helper.setupA2(A2);
+		helper.setupA1p1(A1);
+		helper.setupA1p2(A1);
+		helper.setupA2p1(A2);
+		helper.setupA2p2(A2);
 
 		// instead of Gauss-Jordan elimination LU decomposition is used to solve the system
 		if (!solver.setA(A1))
