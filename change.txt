@@ -12,6 +12,10 @@ Version : 1.1.5
 
 - PerspectiveOps
   * Added pointAt()
+- Quality of life features added to various array types
+- Support for textured mesh reading and rendering
+- Fixed camera for 3D mesh viewer so that it actually points at the object
+- Updated Android and other dependencies
 
 ---------------------
 Date    : 2024/May/14
