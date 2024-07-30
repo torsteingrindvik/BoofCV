@@ -22,6 +22,7 @@ import boofcv.misc.BoofLambdas;
 import boofcv.struct.PackedArray;
 import georegression.struct.GeoTuple3D_F64;
 import georegression.struct.point.Point3D_F64;
+import lombok.Getter;
 import org.ddogleg.struct.BigDogArray_F64;
 import org.ddogleg.struct.BigDogGrowth;
 
@@ -38,8 +39,8 @@ public class PackedBigArrayPoint3D_F64 implements PackedArray<Point3D_F64> {
 	// tuple that the result is temporarily written to
 	private final Point3D_F64 temp = new Point3D_F64();
 
-	// Storage for the raw data in an array
-	private final BigDogArray_F64 dog;
+	/** Storage for the raw data in an array */
+	@Getter private final BigDogArray_F64 array;
 
 	/**
 	 * Constructor where the default is used for all parameters.
@@ -63,7 +64,7 @@ public class PackedBigArrayPoint3D_F64 implements PackedArray<Point3D_F64> {
 	 * @param growth Growth strategy to use
 	 */
 	public PackedBigArrayPoint3D_F64( int reservedPoints, int blockSize, BigDogGrowth growth ) {
-		dog = new BigDogArray_F64(reservedPoints*DOF, blockSize*DOF, growth);
+		array = new BigDogArray_F64(reservedPoints*DOF, blockSize*DOF, growth);
 	}
 
 	/**
@@ -80,17 +81,17 @@ public class PackedBigArrayPoint3D_F64 implements PackedArray<Point3D_F64> {
 	}
 
 	@Override public void reset() {
-		dog.reset();
+		array.reset();
 	}
 
 	@Override public void reserve( int numPoints ) {
-		dog.reserve(numPoints*DOF);
+		array.reserve(numPoints*DOF);
 	}
 
 	public void append( double x, double y, double z ) {
-		dog.add(x);
-		dog.add(y);
-		dog.add(z);
+		array.add(x);
+		array.add(y);
+		array.add(z);
 	}
 
 	public void append( GeoTuple3D_F64<?> element ) {
@@ -99,8 +100,8 @@ public class PackedBigArrayPoint3D_F64 implements PackedArray<Point3D_F64> {
 
 	@Override public void set( int index, Point3D_F64 element ) {
 		index *= DOF;
-		double[] block = dog.getBlocks().get(index/dog.getBlockSize());
-		int where = index%dog.getBlockSize();
+		double[] block = array.getBlocks().get(index/array.getBlockSize());
+		int where = index%array.getBlockSize();
 		element.x = block[where];
 		element.y = block[where + 1];
 		element.z = block[where + 2];
@@ -120,15 +121,15 @@ public class PackedBigArrayPoint3D_F64 implements PackedArray<Point3D_F64> {
 	}
 
 	@Override public void append( Point3D_F64 element ) {
-		dog.add(element.x);
-		dog.add(element.y);
-		dog.add(element.z);
+		array.add(element.x);
+		array.add(element.y);
+		array.add(element.z);
 	}
 
 	@Override public Point3D_F64 getTemp( int index ) {
 		index *= DOF;
-		double[] block = dog.getBlocks().get(index/dog.getBlockSize());
-		int element = index%dog.getBlockSize();
+		double[] block = array.getBlocks().get(index/array.getBlockSize());
+		int element = index%array.getBlockSize();
 		temp.x = block[element];
 		temp.y = block[element + 1];
 		temp.z = block[element + 2];
@@ -142,8 +143,8 @@ public class PackedBigArrayPoint3D_F64 implements PackedArray<Point3D_F64> {
 
 	public void getCopy( int index, GeoTuple3D_F64<?> dst ) {
 		index *= DOF;
-		double[] block = dog.getBlocks().get(index/dog.getBlockSize());
-		int element = index%dog.getBlockSize();
+		double[] block = array.getBlocks().get(index/array.getBlockSize());
+		int element = index%array.getBlockSize();
 		dst.x = block[element];
 		dst.y = block[element + 1];
 		dst.z = block[element + 2];
@@ -154,7 +155,7 @@ public class PackedBigArrayPoint3D_F64 implements PackedArray<Point3D_F64> {
 	}
 
 	@Override public int size() {
-		return dog.size/3;
+		return array.size/3;
 	}
 
 	@Override public Class<Point3D_F64> getElementType() {
@@ -162,7 +163,7 @@ public class PackedBigArrayPoint3D_F64 implements PackedArray<Point3D_F64> {
 	}
 
 	@Override public void forIdx( int idx0, int idx1, BoofLambdas.ProcessIndex<Point3D_F64> op ) {
-		dog.processByBlock(idx0*3, idx1*3, ( array, arrayIdx0, arrayIdx1, offset ) -> {
+		array.processByBlock(idx0*3, idx1*3, ( array, arrayIdx0, arrayIdx1, offset ) -> {
 			int pointIndex = idx0 + offset/DOF;
 			for (int i = arrayIdx0; i < arrayIdx1; i += DOF) {
 				temp.x = array[i];
