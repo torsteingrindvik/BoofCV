@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -137,7 +137,7 @@ public class GenerateStereoPairGraphFromScene implements VerbosePrint {
 				// use the world axis and not the local one
 				scene.getWorldToView(scene.views.get(viewIdxA), world_to_view, tmpSE);
 
-				computePointingVector(world_to_view, p, scene.isHomogenous(), viewA.pointing.grow());
+				computePointingVector(world_to_view, p, scene.isHomogeneous(), viewA.pointing.grow());
 
 				// Connect this view to the other views
 				for (int j = i + 1; j < p.views.size; j++) {
@@ -153,20 +153,20 @@ public class GenerateStereoPairGraphFromScene implements VerbosePrint {
 	 * @param pointing (Output) Cartesian vector pointing from the view to the point.
 	 */
 	protected void computePointingVector( Se3_F64 world_to_view, SceneStructureCommon.Point p,
-										  boolean homogenous, Vector3D_F64 pointing ) {
+										  boolean homogeneous, Vector3D_F64 pointing ) {
 		double x = p.coordinate[0];
 		double y = p.coordinate[1];
 		double z = p.coordinate[2];
-		double w = homogenous ? p.coordinate[3] : 1.0;
+		double w = homogeneous ? p.coordinate[3] : 1.0;
 
-		// pointing = [ I | T] h, where h is homogenous coordinates and T is view's location
+		// pointing = [ I | T] h, where h is homogeneous coordinates and T is view's location
 		pointing.x = x + world_to_view.T.x*w;
 		pointing.y = y + world_to_view.T.y*w;
 		pointing.z = z + world_to_view.T.z*w;
 		pointing.normalize();
 
-		// There's a sign ambiguity in the homogenous case that needs to be resolved
-		if (!homogenous)
+		// There's a sign ambiguity in the homogeneous case that needs to be resolved
+		if (!homogeneous)
 			return;
 
 		// It can be resolved by assuming a camera can't see backwards. Direction of camera can be determined

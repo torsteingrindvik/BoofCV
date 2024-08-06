@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -29,7 +29,7 @@ import org.ddogleg.struct.DogArray_I32;
 
 /**
  * Given a {@link SceneStructureMetric scene}, this will iterate through points in that scene that are inside
- * of a provided array full of indexes. This handles 3D and homogenous points.
+ * of a provided array full of indexes. This handles 3D and homogeneous points.
  *
  * @author Peter Abeles
  */
@@ -49,7 +49,7 @@ public class ScenePointsSetIterator<T extends PointIndex<T, P>, P extends GeoTup
 	 *
 	 * @param scene (Input) The scene which is to be iterated through
 	 * @param indexes (Input) Indexes that specify which features in the scene it should be iterating through
-	 * @param point (Input,Output) Storage for the point. Make sure you get 3D vs homogenous correct.
+	 * @param point (Input,Output) Storage for the point. Make sure you get 3D vs homogeneous correct.
 	 */
 	public ScenePointsSetIterator( SceneStructureCommon scene, DogArray_I32 indexes, T point ) {
 		this(point);
@@ -62,7 +62,7 @@ public class ScenePointsSetIterator<T extends PointIndex<T, P>, P extends GeoTup
 	 * Re-initializes and can be used to change the scene and set of indexes
 	 */
 	public void initialize( SceneStructureCommon scene, DogArray_I32 indexes ) {
-		if (scene.isHomogenous() != point.p instanceof Point4D_F64)
+		if (scene.isHomogeneous() != point.p instanceof Point4D_F64)
 			throw new IllegalArgumentException("Scene point type does not match provided point type");
 
 		this.scene = scene;
@@ -84,7 +84,7 @@ public class ScenePointsSetIterator<T extends PointIndex<T, P>, P extends GeoTup
 	@Override public T next() {
 		// Get the index of the point in this scene
 		int indexScene = indexes.get(index++);
-		if (scene.isHomogenous())
+		if (scene.isHomogeneous())
 			scene.points.get(indexScene).get((Point4D_F64)point.p);
 		else
 			scene.points.get(indexScene).get((Point3D_F64)point.p);

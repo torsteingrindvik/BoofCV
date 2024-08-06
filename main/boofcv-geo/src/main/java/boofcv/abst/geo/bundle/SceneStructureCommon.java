@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -44,24 +44,24 @@ import java.util.Objects;
 public abstract class SceneStructureCommon implements SceneStructure {
 	public final DogArray<Camera> cameras = new DogArray<>(Camera::new, Camera::reset);
 	public DogArray<Point> points;
-	/** True if homogenous coordinates are being used */
-	protected boolean homogenous;
+	/** True if homogeneous coordinates are being used */
+	protected boolean homogeneous;
 	/** number of elements in a point. Will be 3 or 4 */
 	protected @Getter int pointSize;
 
-	protected SceneStructureCommon( boolean homogenous ) {
-		setHomogenous(homogenous);
+	protected SceneStructureCommon( boolean homogeneous ) {
+		setHomogeneous(homogeneous);
 	}
 
 	/**
-	 * Used to change if homogenous coordinates are used or not. All past points are discarded when this function is
+	 * Used to change if homogeneous coordinates are used or not. All past points are discarded when this function is
 	 * called
 	 *
-	 * @param homogenous true for homogenous coordinates or false for 3D cartesian
+	 * @param homogeneous true for homogeneous coordinates or false for 3D cartesian
 	 */
-	public void setHomogenous( boolean homogenous ) {
-		this.homogenous = homogenous;
-		pointSize = homogenous ? 4 : 3;
+	public void setHomogeneous( boolean homogeneous ) {
+		this.homogeneous = homogeneous;
+		pointSize = homogeneous ? 4 : 3;
 		points = new DogArray<>(() -> new Point(pointSize), Point::reset);
 	}
 
@@ -78,7 +78,7 @@ public abstract class SceneStructureCommon implements SceneStructure {
 	}
 
 	/**
-	 * Specifies the location of a point as a 3D homogenous coordinate
+	 * Specifies the location of a point as a 3D homogeneous coordinate
 	 *
 	 * @param which Which point is being specified
 	 * @param x coordinate along x-axis
@@ -290,7 +290,7 @@ public abstract class SceneStructureCommon implements SceneStructure {
 		}
 
 		/**
-		 * Normalize a point in homogenous coordinate so that it's f-norm is 1
+		 * Normalize a point in homogeneous coordinate so that it's f-norm is 1
 		 */
 		public void normalizeH() {
 			double n = 0;
@@ -325,8 +325,8 @@ public abstract class SceneStructureCommon implements SceneStructure {
 	}
 
 	@Override
-	public boolean isHomogenous() {
-		return homogenous;
+	public boolean isHomogeneous() {
+		return homogeneous;
 	}
 
 	public int getObservationCount() {

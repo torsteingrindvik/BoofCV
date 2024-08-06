@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -849,7 +849,7 @@ public class MultiViewOps {
 	/**
 	 * <p>
 	 * Given a fundamental matrix a pair of camera matrices P and P1' are extracted. The camera matrices
-	 * are 3 by 4 and used to project a 3D homogenous point onto the image plane. These camera matrices will only
+	 * are 3 by 4 and used to project a 3D homogeneous point onto the image plane. These camera matrices will only
 	 * be known up to a projective transform, thus there are multiple solutions, The canonical camera
 	 * matrix is defined as: <br>
 	 * <pre>
@@ -1249,7 +1249,7 @@ public class MultiViewOps {
 	 * @param x1 (Input) point (pixel) in first view
 	 * @param l2 (Input) line in second view
 	 * @param T (Input) Trifocal tensor
-	 * @param x3 (Output) Induced point (pixel) in third view. Homogenous coordinates.
+	 * @param x3 (Output) Induced point (pixel) in third view. Homogeneous coordinates.
 	 * @return induced point.
 	 */
 	public static Point3D_F64 transfer_1_to_3( TrifocalTensor T, Point2D_F64 x1, Vector3D_F64 l2,
@@ -1296,7 +1296,7 @@ public class MultiViewOps {
 	 * @param x1 (Input) point (pixel) in first view
 	 * @param x2 (Input) point (pixel) in second view
 	 * @param T (Input) Trifocal tensor
-	 * @param x3 (Output) Induced point (pixel) in third view. Homogenous coordinates.
+	 * @param x3 (Output) Induced point (pixel) in third view. Homogeneous coordinates.
 	 * @return induced point.
 	 */
 	public static Point3D_F64 transfer_1_to_3( TrifocalTensor T, Point2D_F64 x1, Point2D_F64 x2,
@@ -1318,7 +1318,7 @@ public class MultiViewOps {
 	 * @param x1 (Input) point (pixel) in first view
 	 * @param l3 (Input) line in third view
 	 * @param T (Input) Trifocal tensor
-	 * @param x2 (Output) Induced point (pixel) in second view. Homogenous coordinates.
+	 * @param x2 (Output) Induced point (pixel) in second view. Homogeneous coordinates.
 	 * @return induced point.
 	 */
 	public static Point3D_F64 transfer_1_to_2( TrifocalTensor T, Point2D_F64 x1, Vector3D_F64 l3,
@@ -1349,7 +1349,7 @@ public class MultiViewOps {
 	 * @param x1 (Input) point (pixel) in first view
 	 * @param x3 (Input) point (pixel) in third view
 	 * @param T (Input) Trifocal tensor
-	 * @param x2 (Output) Induced point (pixel) in second view. Homogenous coordinates.
+	 * @param x2 (Output) Induced point (pixel) in second view. Homogeneous coordinates.
 	 * @return induced point.
 	 */
 	public static Point3D_F64 transfer_1_to_2( TrifocalTensor T, Point2D_F64 x1, Point2D_F64 x3,
@@ -1716,7 +1716,7 @@ public class MultiViewOps {
 		var normObs = new DogArray<>(Point2D_F64::new);
 		normObs.resize(3);
 
-		final boolean homogenous = structure.isHomogenous();
+		final boolean homogeneous = structure.isHomogeneous();
 		var X = new Point4D_F64();
 
 		var worldToViews = new ArrayList<Se3_F64>();
@@ -1741,7 +1741,7 @@ public class MultiViewOps {
 				// this should work unless the input is bad
 				throw new RuntimeException("Triangulation failed. Bad input?");
 			}
-			if (homogenous)
+			if (homogeneous)
 				sp.set(X.x, X.y, X.z, X.w);
 			else
 				sp.set(X.x/X.w, X.y/X.w, X.z/X.w);
@@ -1929,7 +1929,7 @@ public class MultiViewOps {
 			double x = point.coordinate[0];
 			double y = point.coordinate[1];
 			double z = point.coordinate[2];
-			double w = scene.isHomogenous() ? point.coordinate[3] : 1.0;
+			double w = scene.isHomogeneous() ? point.coordinate[3] : 1.0;
 
 			// Project the pixel while being careful for points at infinity
 			SePointOps_F64.transformV(world_to_view, x, y, z, w, camPoint);
@@ -1940,10 +1940,10 @@ public class MultiViewOps {
 
 	/**
 	 * Converts the points in the scene into a 3D point cloud. A lambda is used pass in the results. This function
-	 * will work if it's homogenous or 3D coordinates.
+	 * will work if it's homogeneous or 3D coordinates.
 	 *
 	 * @param scene (Input) The scene
-	 * @param tol (Input) Only used if the scene is in homogenous coordinates.
+	 * @param tol (Input) Only used if the scene is in homogeneous coordinates.
 	 * Tolerance for points being at infinity. Smaller values means more tolerant. Try 1e-8.
 	 * @param func (Output) Results are passed in to this function with their index and 3D point.
 	 */
@@ -1952,7 +1952,7 @@ public class MultiViewOps {
 
 		Point3D_F64 out = new Point3D_F64();
 
-		final boolean homogenous = scene.isHomogenous();
+		final boolean homogeneous = scene.isHomogeneous();
 
 		for (int pointIdx = 0; pointIdx < scene.points.size; pointIdx++) {
 			SceneStructureCommon.Point point = scene.points.get(pointIdx);
@@ -1960,7 +1960,7 @@ public class MultiViewOps {
 			double y = point.coordinate[1];
 			double z = point.coordinate[2];
 
-			if (homogenous) {
+			if (homogeneous) {
 				double r = Math.sqrt(x*x + y*y + z*z);
 				double w = point.coordinate[3];
 
@@ -1980,8 +1980,8 @@ public class MultiViewOps {
 	}
 
 	/**
-	 * Converts the points in the scene into a homogenous point cloud. Results are passed in to the lambda.
-	 * It will work with a scene in homogenous or 3D coordinates.
+	 * Converts the points in the scene into a homogeneous point cloud. Results are passed in to the lambda.
+	 * It will work with a scene in homogeneous or 3D coordinates.
 	 *
 	 * @param scene (Input) The scene
 	 * @param func (Output) Results are passed in to this function with their index and 3D point.
@@ -1990,14 +1990,14 @@ public class MultiViewOps {
 
 		Point4D_F64 out = new Point4D_F64();
 
-		final boolean homogenous = scene.isHomogenous();
+		final boolean homogeneous = scene.isHomogeneous();
 
 		for (int pointIdx = 0; pointIdx < scene.points.size; pointIdx++) {
 			SceneStructureCommon.Point point = scene.points.get(pointIdx);
 			double x = point.coordinate[0];
 			double y = point.coordinate[1];
 			double z = point.coordinate[2];
-			double w = homogenous ? point.coordinate[3] : 1.0;
+			double w = homogeneous ? point.coordinate[3] : 1.0;
 			out.setTo(x, y, z, w);
 			func.process(pointIdx, out);
 		}
@@ -2051,7 +2051,7 @@ public class MultiViewOps {
 			epipolarLines.add(UtilLine2D_F64.convert(p.p2, h2, (LineGeneral2D_F64)null));
 		}
 
-		// Epipole in the second view, homogenous coordinates
+		// Epipole in the second view, homogeneous coordinates
 		Point3D_F64 epipole = Intersection2D_F64.intersection(epipolarLines, null);
 
 		// F=cross_matrix(e)*H

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Residuals for a projective triangulation where the difference between predicted and observed pixels
- * are minimized. The optimized point is in homogenous coordinates.
+ * are minimized. The optimized point is in homogeneous coordinates.
  *
  * @author Peter Abeles
  */
@@ -40,7 +40,7 @@ public class ResidualsTriangulateProjective implements FunctionNtoM {
 	// Known camera motion
 	private List<DMatrixRMaj> cameraMatrices;
 
-	// 3D point in homogenous coordinates
+	// 3D point in homogeneous coordinates
 	private final Point4D_F64 point = new Point4D_F64();
 	private final Point2D_F64 predicted = new Point2D_F64();
 

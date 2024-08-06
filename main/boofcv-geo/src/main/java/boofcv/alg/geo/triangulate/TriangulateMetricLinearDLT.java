@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -69,7 +69,7 @@ public class TriangulateMetricLinearDLT {
 	 *
 	 * @param observations Observation in each view in normalized coordinates. Not modified.
 	 * @param worldToView Transformations from world to the view. Not modified.
-	 * @param found (Output) 3D point in homogenous coordinates in world reference frame. Modified.
+	 * @param found (Output) 3D point in homogeneous coordinates in world reference frame. Modified.
 	 */
 	public GeometricResult triangulate( List<Point2D_F64> observations,
 										List<Se3_F64> worldToView,
@@ -137,7 +137,7 @@ public class TriangulateMetricLinearDLT {
 	 *
 	 * @param observations Observation in each view in 3d pointing vectors. Not modified.
 	 * @param worldToView Transformations from world to the view. Not modified.
-	 * @param found (Output) 3D point in homogenous coordinates in world reference frame. Modified.
+	 * @param found (Output) 3D point in homogeneous coordinates in world reference frame. Modified.
 	 */
 	public GeometricResult triangulateP( List<Point3D_F64> observations,
 										 List<Se3_F64> worldToView,

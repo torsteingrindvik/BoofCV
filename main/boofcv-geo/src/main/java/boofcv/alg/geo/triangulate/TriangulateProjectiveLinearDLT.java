@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -67,7 +67,7 @@ public class TriangulateProjectiveLinearDLT {
 	 *
 	 * @param observations Observation in each view in pixel coordinates. Not modified.
 	 * @param cameraMatrices Camera projection matrices, e.g. x = P*X. 3 by 4 projectives. Not modified.
-	 * @param found Output, found 3D point in homogenous coordinates. Modified.
+	 * @param found Output, found 3D point in homogeneous coordinates. Modified.
 	 * @return true if triangulation was successful or false if it failed
 	 */
 	public GeometricResult triangulate( List<Point2D_F64> observations,

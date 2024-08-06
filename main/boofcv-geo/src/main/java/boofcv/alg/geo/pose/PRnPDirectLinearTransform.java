@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Estimates a projective camera given N points, i.e. Projective N Point (PRnP). This is the projective equivalent
  * of the perspective N Point (PnP) problem. Each point consists of a 2D pixel observations and 3D
- * homogenous coordinate. Pixels are normalized to have zero means and standard deviation of 1. 3D points are
+ * homogeneous coordinate. Pixels are normalized to have zero means and standard deviation of 1. 3D points are
  * scaled to have a f-norm of 1. See [1] for details. Each point provides 2 linearly independent equations, requiring
  * a minimum of 6 points. More points are allowed.
  *
@@ -49,7 +49,7 @@ public class PRnPDirectLinearTransform {
 	public SolveNullSpace<DMatrixRMaj> solverNullspace = new SolveNullSpaceSvd_DDRM();
 	private DMatrixRMaj ns = new DMatrixRMaj(12, 1);
 
-	// if true it will normalize input 3D homogenous to have f-norm of 1
+	// if true it will normalize input 3D homogeneous to have f-norm of 1
 	private boolean normalize3D = true;
 
 	private DMatrixRMaj A = new DMatrixRMaj(12, 12);
@@ -57,7 +57,7 @@ public class PRnPDirectLinearTransform {
 	/**
 	 * Computes projective camera matrix.
 	 *
-	 * @param worldPts points in homogenous 3D coordinates in world frame. Might be modified.
+	 * @param worldPts points in homogeneous 3D coordinates in world frame. Might be modified.
 	 * @param observed pixel coordinates of points. not modified
 	 * @param solutionModel (Output) 3x4 camera matrix
 	 * @return true if succesfull

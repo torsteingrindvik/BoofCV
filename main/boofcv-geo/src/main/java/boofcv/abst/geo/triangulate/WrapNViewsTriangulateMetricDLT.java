@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -50,7 +50,7 @@ public class WrapNViewsTriangulateMetricDLT implements TriangulateNViewsMetric {
 			return false;
 		}
 
-		PerspectiveOps.homogenousTo3dPositiveZ(pointH, 1e20, UtilEjml.EPS, location);
+		PerspectiveOps.homogeneousTo3dPositiveZ(pointH, 1e20, UtilEjml.EPS, location);
 		return true;
 	}
 }

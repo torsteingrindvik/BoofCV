@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -43,8 +43,8 @@ class TestBundleAdjustmentProjectiveResidualFunction extends BoofStandardJUnit {
 		multipleCalls(true);
 	}
 
-	void multipleCalls( boolean homogenous ) {
-		SceneStructureProjective structure = homogenous ? createSceneH(rand) : createScene3D(rand);
+	void multipleCalls( boolean homogeneous ) {
+		SceneStructureProjective structure = homogeneous ? createSceneH(rand) : createScene3D(rand);
 		SceneObservations obs = createObservations(rand, structure);
 
 		double[] param = new double[structure.getParameterCount()];
@@ -72,8 +72,8 @@ class TestBundleAdjustmentProjectiveResidualFunction extends BoofStandardJUnit {
 		changeInParamChangesOutput(true);
 	}
 
-	void changeInParamChangesOutput( boolean homogenous ) {
-		SceneStructureProjective structure = homogenous ? createSceneH(rand) : createScene3D(rand);
+	void changeInParamChangesOutput( boolean homogeneous ) {
+		SceneStructureProjective structure = homogeneous ? createSceneH(rand) : createScene3D(rand);
 		double[] param = new double[structure.getParameterCount()];
 
 		new CodecSceneStructureProjective().encode(structure, param);

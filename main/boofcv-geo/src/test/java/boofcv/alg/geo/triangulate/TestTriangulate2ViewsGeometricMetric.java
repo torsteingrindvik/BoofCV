@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -45,7 +45,7 @@ public class TestTriangulate2ViewsGeometricMetric extends CommonTriangulationChe
 		}
 	}
 
-	@Test void triangulate_two_homogenous() {
+	@Test void triangulate_two_homogeneous() {
 		createScene();
 
 		var alg = new Triangulate2ViewsGeometricMetric();

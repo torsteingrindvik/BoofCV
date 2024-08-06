@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -347,7 +347,7 @@ public class PairwiseGraphUtils {
 	 *
 	 * 1) RANSAC to fit a trifocal tensor
 	 * 2) Extract camera matrices that have a common projective space
-	 * 3) Triangulate location of 3D homogenous points
+	 * 3) Triangulate location of 3D homogeneous points
 	 *
 	 * @param fixedSeed if true the seed is fixed and other views are not. If false then the inverse happens.
 	 */
@@ -365,12 +365,12 @@ public class PairwiseGraphUtils {
 		structurePr.setView(1, !fixedSeed, P2, priorCamB.width, priorCamB.height);
 		structurePr.setView(2, !fixedSeed, P3, priorCamC.width, priorCamC.height);
 
-		// triangulate homogenous coordinates for each point in the inlier set
+		// triangulate homogeneous coordinates for each point in the inlier set
 		triangulateFeatures();
 	}
 
 	/**
-	 * Triangulates the location of each features in homogenous space and save to bundle adjustment scene
+	 * Triangulates the location of each features in homogeneous space and save to bundle adjustment scene
 	 */
 	protected void triangulateFeatures() {
 		checkTrue(structurePr.views.size > 0, "Must initialize the structure first");

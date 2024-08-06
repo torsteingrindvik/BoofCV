@@ -4,7 +4,7 @@
 - Compare EPnP directly to author's c code
 
 - Bundle Adjustment
-  * Using homogenous coordinates
+  * Using homogeneous coordinates
   * compare to opencv
 
 - Triangulation Stability

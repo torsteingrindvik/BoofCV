@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -65,7 +65,7 @@ public class BundleAdjustmentProjectiveResidualFunction
 	private final Point3D_F64 p3 = new Point3D_F64();
 	private final Point4D_F64 p4 = new Point4D_F64();
 
-	// Pixel in homogenous image coordinate
+	// Pixel in homogeneous image coordinate
 	private final Point3D_F64 pix = new Point3D_F64();
 
 	/**
@@ -97,7 +97,7 @@ public class BundleAdjustmentProjectiveResidualFunction
 		// write the current parameters into the scene's structure
 		codec.decode(input, structure);
 
-		if (structure.isHomogenous())
+		if (structure.isHomogeneous())
 			project4(output);
 		else
 			project3(output);
@@ -121,7 +121,7 @@ public class BundleAdjustmentProjectiveResidualFunction
 				// Apply projective camera to point in world coordinates
 				PerspectiveOps.renderPixel(view.worldToView, p3, pix);
 
-				// Apply camera model to pixel in homogenous coordinates
+				// Apply camera model to pixel in homogeneous coordinates
 				camera.model.project(pix.x, pix.y, pix.z, predictedPixel);
 
 				// Save results
@@ -134,7 +134,7 @@ public class BundleAdjustmentProjectiveResidualFunction
 	}
 
 	/**
-	 * projection from homogenous coordinates
+	 * projection from homogeneous coordinates
 	 */
 	private void project4( double[] output ) {
 		int observationIndex = 0;
@@ -151,7 +151,7 @@ public class BundleAdjustmentProjectiveResidualFunction
 				// Apply projective camera to point in world coordinates
 				PerspectiveOps.renderPixel(view.worldToView, p4, pix);
 
-				// Apply camera model to pixel in homogenous coordinates
+				// Apply camera model to pixel in homogeneous coordinates
 				camera.model.project(pix.x, pix.y, pix.z, predictedPixel);
 
 				// Save results

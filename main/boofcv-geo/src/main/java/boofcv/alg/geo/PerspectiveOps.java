@@ -1020,18 +1020,18 @@ public class PerspectiveOps {
 	}
 
 	/**
-	 * Converts a 3D homogenous coordinate into a non-homogenous coordinate. Things get tricky when a point is at or
+	 * Converts a 3D homogeneous coordinate into a non-homogeneous coordinate. Things get tricky when a point is at or
 	 * "close to" infinity. This situation is handled by throwing it at some distant location.
 	 * This is a reasonable approach when you can't just skip the point. It's assumed that points at
 	 * infinity have a positive Z value.
 	 *
-	 * @param p4 (Input) Homogenous coordinate.
+	 * @param p4 (Input) Homogeneous coordinate.
 	 * @param farAway (Input) How far away points at infinity should be put. Application dependent. Try 1e9
 	 * @param tol (Input) Tolerance for defining a point at infinity. If p4 has a norm of 1 then 1e-7 is
 	 * probably reasonable.
 	 * @param p3 (output) Cartesian coordinate.
 	 */
-	public static void homogenousTo3dPositiveZ( Point4D_F64 p4, double farAway, double tol, Point3D_F64 p3 ) {
+	public static void homogeneousTo3dPositiveZ( Point4D_F64 p4, double farAway, double tol, Point3D_F64 p3 ) {
 		double norm = p4.norm();
 		double w = p4.w;
 		if (Math.abs(w) <= tol*norm) {
@@ -1047,8 +1047,8 @@ public class PerspectiveOps {
 	}
 
 	/**
-	 * Returns a distance measure between two 3D homogenous points. There is no well defined way to measure distance
-	 * in homogenous space.
+	 * Returns a distance measure between two 3D homogeneous points. There is no well defined way to measure distance
+	 * in homogeneous space.
 	 *
 	 * <p>distance = norm( a/norm(a) - b/norm(b) )</p>
 	 *
@@ -1061,11 +1061,11 @@ public class PerspectiveOps {
 	}
 
 	/**
-	 * Returns the Euclidean distance between a 3D point a point homogenous coordinates. If the homogenous point
+	 * Returns the Euclidean distance between a 3D point a point homogeneous coordinates. If the homogeneous point
 	 * is at infinity, within tolererance, then {@link Double#POSITIVE_INFINITY} is returned.
 	 *
 	 * @param a (Input) 3D point
-	 * @param b (Input) Homogenous point
+	 * @param b (Input) Homogeneous point
 	 * @param tol (Input) Tolerance for point being at infinity. Closer to zero means more strict. Try 1e-8
 	 * @return Euclidean distance
 	 */
@@ -1074,7 +1074,7 @@ public class PerspectiveOps {
 	}
 
 	/**
-	 * <p>Checks to see if a point in homogenous coordinates is behind the camera, including z=0.
+	 * <p>Checks to see if a point in homogeneous coordinates is behind the camera, including z=0.
 	 * This is made more complex as the possibility that it's at infinity needs to be explicitly checked
 	 * and handled.</p>
 	 *
@@ -1124,7 +1124,7 @@ public class PerspectiveOps {
 	}
 
 	/**
-	 * Applies a rotation to a homogenous 3D point
+	 * Applies a rotation to a homogeneous 3D point
 	 *
 	 * @param R rotation matrix.
 	 * @param src (Input) point
@@ -1142,7 +1142,7 @@ public class PerspectiveOps {
 	}
 
 	/**
-	 * Applies a rotation in reverse to a homogenous 3D point
+	 * Applies a rotation in reverse to a homogeneous 3D point
 	 *
 	 * @param R rotation matrix.
 	 * @param src (Input) point

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -136,7 +136,7 @@ class TestGenerateStereoPairGraphFromScene extends BoofStandardJUnit {
 		assertEquals(0.0, expected.distance(found), UtilEjml.TEST_F64);
 	}
 
-	@Test void computePointingVector_Homogenous() {
+	@Test void computePointingVector_Homogeneous() {
 		var point = new Point3D_F64(0.5, -2, 31.0);
 		var location = new Point3D_F64(0.5, -0.1, 1.6);
 		var expected = new Vector3D_F64(location, point);

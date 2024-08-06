@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -24,7 +24,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Observed point feature location on the image plane and its 3D homogenous position.
+ * Observed point feature location on the image plane and its 3D homogeneous position.
  *
  * @author Peter Abeles
  */
@@ -34,7 +34,7 @@ public class Point2D4D {
 	 */
 	@Getter @Setter public Point2D_F64 observation;
 	/**
-	 * 3D location of the feature in homogenous world coordinates
+	 * 3D location of the feature in homogeneous world coordinates
 	 */
 	@Getter @Setter public Point4D_F64 location;
 

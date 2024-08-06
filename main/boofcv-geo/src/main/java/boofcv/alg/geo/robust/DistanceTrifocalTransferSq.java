@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2020, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -35,7 +35,7 @@ import java.util.List;
 public class DistanceTrifocalTransferSq implements DistanceFromModel<TrifocalTensor, AssociatedTriple> {
 	TrifocalTransfer transfer = new TrifocalTransfer();
 
-	// transferred point in homogenous coordinates
+	// transferred point in homogeneous coordinates
 	Point3D_F64 c = new Point3D_F64();
 
 	@Override

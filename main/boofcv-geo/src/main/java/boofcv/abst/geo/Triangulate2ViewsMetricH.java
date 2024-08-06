@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -23,7 +23,7 @@ import georegression.struct.point.Point4D_F64;
 import georegression.struct.se.Se3_F64;
 
 /**
- * Triangulate the location of a homogenous 3D point from two views of a feature given a calibrated
+ * Triangulate the location of a homogeneous 3D point from two views of a feature given a calibrated
  * camera and known camera motion.
  *
  * @author Peter Abeles

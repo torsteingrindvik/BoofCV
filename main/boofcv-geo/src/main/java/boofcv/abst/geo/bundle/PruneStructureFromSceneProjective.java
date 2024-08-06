@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -72,7 +72,7 @@ public class PruneStructureFromSceneProjective {
 				v.getPixel(indexInView, observation);
 
 				// Get feature location in world and predict the pixel observation
-				if (structure.homogenous) {
+				if (structure.homogeneous) {
 					f.get(X4);
 					PerspectiveOps.renderPixel(view.worldToView, X4, predicted);
 				} else {

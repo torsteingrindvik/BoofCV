@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -110,7 +110,7 @@ public class VisOdomMonoDepthPnP<T extends ImageBase<T>>
 		this.bundleViso = new VisOdomBundleAdjustment<>(Track::new);
 
 		// TODO would be best if this reduced pixel error and not geometric error
-		// TODO remove and replace with calibrated homogenous coordinates when it exists
+		// TODO remove and replace with calibrated homogeneous coordinates when it exists
 		ConfigTriangulation config = new ConfigTriangulation();
 		config.type = ConfigTriangulation.Type.GEOMETRIC;
 		config.converge.maxIterations = 10;
@@ -423,8 +423,8 @@ public class VisOdomMonoDepthPnP<T extends ImageBase<T>>
 			// Go from world coordinates to the previous frame
 			SePointOps_F64.transform(world_to_prev, bt.worldLoc, prevLoc4);
 
-			// Go from homogenous coordinates into 3D coordinates
-			PerspectiveOps.homogenousTo3dPositiveZ(prevLoc4, 1e8, 1e-7, p.location);
+			// Go from homogeneous coordinates into 3D coordinates
+			PerspectiveOps.homogeneousTo3dPositiveZ(prevLoc4, 1e8, 1e-7, p.location);
 		}
 
 		// estimate the motion up to a scale factor in translation

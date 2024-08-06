@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2020, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -42,7 +42,7 @@ public class CodecSceneStructureProjective implements BundleAdjustmentSchur.Code
 			p.coordinate[0] = input[index++];
 			p.coordinate[1] = input[index++];
 			p.coordinate[2] = input[index++];
-			if (structure.isHomogenous())
+			if (structure.isHomogeneous())
 				p.coordinate[3] = input[index++];
 		}
 
@@ -74,7 +74,7 @@ public class CodecSceneStructureProjective implements BundleAdjustmentSchur.Code
 			output[index++] = p.coordinate[0];
 			output[index++] = p.coordinate[1];
 			output[index++] = p.coordinate[2];
-			if (structure.isHomogenous())
+			if (structure.isHomogeneous())
 				output[index++] = p.coordinate[3];
 		}
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -194,8 +194,8 @@ public class EstimateViewKnownCalibration implements VerbosePrint {
 	}
 
 	/**
-	 * Triangulates points. Triangulation is done in homogenous coordinates but then converted to 3D points
-	 * since there current isn't a variant of PnP in BoofCV which can handle homogenous points.
+	 * Triangulates points. Triangulation is done in homogeneous coordinates but then converted to 3D points
+	 * since there current isn't a variant of PnP in BoofCV which can handle homogeneous points.
 	 *
 	 * As a results, thigns will go poorly if a point is at or very near to infinity
 	 */
@@ -218,7 +218,7 @@ public class EstimateViewKnownCalibration implements VerbosePrint {
 			// Reject points that are behind the camera or at infinity since PnP can't handle infinity
 			if (X.w*X.z <= 0)
 				continue;
-			// NOTE: In the future it would be best if we could pass in homogenous points into PNP
+			// NOTE: In the future it would be best if we could pass in homogeneous points into PNP
 
 			// Note that this point was added to the input list
 			inputPnP_to_inliersThreeView.add(tripleCnt);

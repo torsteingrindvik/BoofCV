@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -32,7 +32,7 @@ class TestSceneStructureCommon extends BoofStandardJUnit {
 	@Test
 	void removePoints() {
 		var structure = new MockSceneStructureCommon(false);
-		structure.homogenous = false;
+		structure.homogeneous = false;
 		structure.pointSize = 3;
 
 		var original = new ArrayList<Point>();
@@ -74,8 +74,8 @@ class TestSceneStructureCommon extends BoofStandardJUnit {
 
 	private static class MockSceneStructureCommon extends SceneStructureCommon {
 
-		MockSceneStructureCommon( boolean homogenous ) {
-			super(homogenous);
+		MockSceneStructureCommon( boolean homogeneous ) {
+			super(homogeneous);
 		}
 
 		@Override public int getParameterCount() {

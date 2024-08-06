@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -77,7 +77,7 @@ public class FundamentalToProjective {
 	/**
 	 * <p>
 	 * Given a fundamental matrix a pair of camera matrices P and P1' are extracted. The camera matrices
-	 * are 3 by 4 and used to project a 3D homogenous point onto the image plane. These camera matrices will only
+	 * are 3 by 4 and used to project a 3D homogeneous point onto the image plane. These camera matrices will only
 	 * be known up to a projective transform, thus there are multiple solutions, The canonical camera
 	 * matrix is defined as: <br>
 	 * <pre>

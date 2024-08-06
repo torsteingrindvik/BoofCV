@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class TestPRnPDirectLinearTransform extends CommonMotionNPointHomogenous {
+class TestPRnPDirectLinearTransform extends CommonMotionNPointHomogeneous {
 	/**
 	 * No noise minimal case. General structure
 	 */

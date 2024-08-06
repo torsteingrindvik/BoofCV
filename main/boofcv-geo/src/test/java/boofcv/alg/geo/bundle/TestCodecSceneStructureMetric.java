@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -43,22 +43,22 @@ class TestCodecSceneStructureMetric extends BoofStandardJUnit {
 		encode_decode(false, true);
 	}
 
-	void encode_decode( boolean homogenous, boolean hasRigid ) {
-		SceneStructureMetric original = createScene(rand, homogenous, hasRigid, false);
+	void encode_decode( boolean homogeneous, boolean hasRigid ) {
+		SceneStructureMetric original = createScene(rand, homogeneous, hasRigid, false);
 
 		CodecSceneStructureMetric codec = new CodecSceneStructureMetric();
 
-		int pointLength = homogenous ? 4 : 3;
+		int pointLength = homogeneous ? 4 : 3;
 		int N = original.getUnknownMotionCount()*6 + original.getUnknownRigidCount()*6 +
 				original.points.size*pointLength + original.getUnknownCameraParameterCount();
 		assertEquals(N, original.getParameterCount());
 		double[] param = new double[N];
 		codec.encode(original, param);
 
-		SceneStructureMetric found = createScene(rand, homogenous, hasRigid, false);
+		SceneStructureMetric found = createScene(rand, homogeneous, hasRigid, false);
 		codec.decode(param, found);
 
-		assertEquals(homogenous, found.isHomogenous());
+		assertEquals(homogeneous, found.isHomogeneous());
 		for (int i = 0; i < original.points.size; i++) {
 			assertTrue(original.points.data[i].distance(found.points.data[i]) < UtilEjml.TEST_F64);
 		}
@@ -99,8 +99,8 @@ class TestCodecSceneStructureMetric extends BoofStandardJUnit {
 		}
 	}
 
-	static SceneStructureMetric createScene( Random rand, boolean homogenous, boolean hasRigid, boolean hasRelative ) {
-		var out = new SceneStructureMetric(homogenous);
+	static SceneStructureMetric createScene( Random rand, boolean homogeneous, boolean hasRigid, boolean hasRelative ) {
+		var out = new SceneStructureMetric(homogeneous);
 
 		int numRigid = hasRigid ? 2 : 0;
 
@@ -121,7 +121,7 @@ class TestCodecSceneStructureMetric extends BoofStandardJUnit {
 
 			for (int i = 0; i < out.rigids.size; i++) {
 				SceneStructureMetric.Rigid r = out.rigids.data[i];
-				if (homogenous) {
+				if (homogeneous) {
 					for (int j = 0; j < r.points.length; j++) {
 						// sign shouldn't matter
 						double sign = rand.nextBoolean() ? -1 : 1;
@@ -150,7 +150,7 @@ class TestCodecSceneStructureMetric extends BoofStandardJUnit {
 		}
 		out.assignIDsToRigidPoints();
 
-		if (homogenous) {
+		if (homogeneous) {
 			for (int i = 0; i < out.points.size; i++) {
 				// sign shouldn't matter
 				double sign = rand.nextBoolean() ? -1 : 1;
@@ -196,8 +196,8 @@ class TestCodecSceneStructureMetric extends BoofStandardJUnit {
 	 * Create a scene where a "stereo" camera is created that moves. The right to left transform is fixed and common
 	 * across all views
 	 */
-	static SceneStructureMetric createSceneStereo( Random rand, boolean homogenous ) {
-		var out = new SceneStructureMetric(homogenous);
+	static SceneStructureMetric createSceneStereo( Random rand, boolean homogeneous ) {
+		var out = new SceneStructureMetric(homogeneous);
 
 		int numSteps = 2;
 		out.initialize(2, 2*numSteps, 10);
@@ -213,7 +213,7 @@ class TestCodecSceneStructureMetric extends BoofStandardJUnit {
 		// Create a fixed transform for left to right camera
 		int leftToRightIdx = out.addMotion(true, SpecialEuclideanOps_F64.eulerXyz(0.25, 0.01, -0.05, 0.01, 0.02, -0.1, null));
 
-		if (homogenous) {
+		if (homogeneous) {
 			for (int i = 0; i < out.points.size; i++) {
 				double w = rand.nextDouble()*0.5 + 0.5;
 				out.setPoint(i, w*(i + 1), w*(i + 2*rand.nextGaussian()), w*(2*i - 3*rand.nextGaussian()), w);
@@ -250,14 +250,14 @@ class TestCodecSceneStructureMetric extends BoofStandardJUnit {
 	/**
 	 * Create a scene where the camera has an adjustable zoom
 	 */
-	static SceneStructureMetric createSceneZoomState( Random rand, boolean homogenous ) {
-		var out = new SceneStructureMetric(homogenous);
+	static SceneStructureMetric createSceneZoomState( Random rand, boolean homogeneous ) {
+		var out = new SceneStructureMetric(homogeneous);
 
 		out.initialize(1, 4, 4, 6, 0);
 
 		out.setCamera(0, true, new BundleZoomSimplified(0.0, 1.0, 0.04, -0.01));
 
-		if (homogenous) {
+		if (homogeneous) {
 			for (int i = 0; i < out.points.size; i++) {
 				double w = rand.nextDouble()*0.5 + 0.5;
 				out.setPoint(i, w*(i + 1), w*(i + 2*rand.nextGaussian()), w*(2*i - 3*rand.nextGaussian()), w);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -195,7 +195,7 @@ public class MultiBaselineDisparityErrors implements VerbosePrint {
 
 				// Convert the disparity from "image" into "fused image"
 				// First compute the 3D point in the rectified coordinate system
-				// This is a homogenous coordinate where w = d. It can handle infinity
+				// This is a homogeneous coordinate where w = d. It can handle infinity
 				double rectZ = imageBaseline*imageFocalX;
 				double rectX = rectZ*(rectPixX - imagePinhole.cx)/imagePinhole.fx;
 				double rectY = rectZ*(rectPixY - imagePinhole.cy)/imagePinhole.fy;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -60,8 +60,8 @@ public abstract class CommonBundleAdjustmentMetricSchurJacobian<M extends DMatri
 	}
 
 	public void compareToNumerical( BundleAdjustmentMetricSchurJacobian<M> alg,
-									boolean homogenous, boolean hasRigid, boolean hasRelative ) {
-		SceneStructureMetric structure = createScene(rand, homogenous, hasRigid, hasRelative);
+									boolean homogeneous, boolean hasRigid, boolean hasRelative ) {
+		SceneStructureMetric structure = createScene(rand, homogeneous, hasRigid, hasRelative);
 		SceneObservations observations = createObservations(rand, structure);
 
 		var param = new double[structure.getParameterCount()];
@@ -88,8 +88,8 @@ public abstract class CommonBundleAdjustmentMetricSchurJacobian<M extends DMatri
 		compareToNumerical_relative(true);
 	}
 
-	public void compareToNumerical_relative( boolean homogenous ) {
-		SceneStructureMetric structure = createScene(rand, homogenous, false, true);
+	public void compareToNumerical_relative( boolean homogeneous ) {
+		SceneStructureMetric structure = createScene(rand, homogeneous, false, true);
 		SceneObservations observations = createObservations(rand, structure);
 
 		// Try different patterns of relative views and attempt to cover all the edge cases
@@ -132,8 +132,8 @@ public abstract class CommonBundleAdjustmentMetricSchurJacobian<M extends DMatri
 		twoViewsOneMotion(false, true);
 	}
 
-	public void twoViewsOneMotion( boolean homogenous, boolean knownMotion ) {
-		SceneStructureMetric structure = createSceneStereo(rand, homogenous);
+	public void twoViewsOneMotion( boolean homogeneous, boolean knownMotion ) {
+		SceneStructureMetric structure = createSceneStereo(rand, homogeneous);
 		SceneObservations observations = createObservations(rand, structure);
 
 		structure.motions.forIdx(( i, m ) -> m.known = knownMotion);
@@ -161,8 +161,8 @@ public abstract class CommonBundleAdjustmentMetricSchurJacobian<M extends DMatri
 		sameMotionInChain(true);
 	}
 
-	public void sameMotionInChain( boolean homogenous ) {
-		SceneStructureMetric structure = createSceneChainSameMotion(rand, homogenous);
+	public void sameMotionInChain( boolean homogeneous ) {
+		SceneStructureMetric structure = createSceneChainSameMotion(rand, homogeneous);
 		SceneObservations observations = createObservations(rand, structure);
 
 		var param = new double[structure.getParameterCount()];
@@ -210,8 +210,8 @@ public abstract class CommonBundleAdjustmentMetricSchurJacobian<M extends DMatri
 	 * Create a scene where a "stereo" camera is created that moves. The right to left transform is fixed and common
 	 * across all views
 	 */
-	static SceneStructureMetric createSceneChainSameMotion( Random rand, boolean homogenous ) {
-		SceneStructureMetric out = new SceneStructureMetric(homogenous);
+	static SceneStructureMetric createSceneChainSameMotion( Random rand, boolean homogeneous ) {
+		SceneStructureMetric out = new SceneStructureMetric(homogeneous);
 
 		int numSteps = 3;
 		out.initialize(1, numSteps, 5);
@@ -222,7 +222,7 @@ public abstract class CommonBundleAdjustmentMetricSchurJacobian<M extends DMatri
 		// Create a fixed transform for left to right camera
 		int motionIdx = out.addMotion(false, SpecialEuclideanOps_F64.eulerXyz(0.25, 0.01, -0.05, 0.01, 0.02, -0.1, null));
 
-		if (homogenous) {
+		if (homogeneous) {
 			for (int i = 0; i < out.points.size; i++) {
 				double w = rand.nextDouble()*0.5 + 0.5;
 				out.setPoint(i, w*(i + 1), w*(i + 2*rand.nextGaussian()), w*(2*i - 3*rand.nextGaussian()), w);

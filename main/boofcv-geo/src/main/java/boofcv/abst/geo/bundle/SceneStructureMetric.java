@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -60,10 +60,10 @@ public class SceneStructureMetric extends SceneStructureCommon {
 	/**
 	 * Configure bundle adjustment
 	 *
-	 * @param homogenous if true then homogeneous coordinates are used
+	 * @param homogeneous if true then homogeneous coordinates are used
 	 */
-	public SceneStructureMetric( boolean homogenous ) {
-		super(homogenous);
+	public SceneStructureMetric( boolean homogeneous ) {
+		super(homogeneous);
 	}
 
 	/**
@@ -371,13 +371,13 @@ public class SceneStructureMetric extends SceneStructureCommon {
 		View view = views.get(viewIdx);
 		getWorldToView(view, world_to_view, tmpSE);
 
-		// extract the coordinate for 3D and homogenous case
+		// extract the coordinate for 3D and homogeneous case
 		Point p = points.get(pointIdx);
 		double x, y, z, w;
 		x = p.coordinate[0];
 		y = p.coordinate[1];
 		z = p.coordinate[2];
-		w = homogenous ? p.coordinate[3] : 1.0;
+		w = homogeneous ? p.coordinate[3] : 1.0;
 
 		// Project the pixel while being careful of points at infinity
 		BundleAdjustmentCamera camera = Objects.requireNonNull(getViewCamera(view).model);
@@ -428,7 +428,7 @@ public class SceneStructureMetric extends SceneStructureCommon {
 	 * @return true if identical to within specified float tolerance and false if not
 	 */
 	public boolean isIdentical( SceneStructureMetric m, double tol ) {
-		if (isHomogenous() != m.isHomogenous())
+		if (isHomogeneous() != m.isHomogeneous())
 			return false;
 		if (views.size != m.views.size)
 			return false;

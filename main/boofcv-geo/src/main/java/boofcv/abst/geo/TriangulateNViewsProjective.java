@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -37,7 +37,7 @@ public interface TriangulateNViewsProjective {
 	 *
 	 * @param observations (Input) Observations of the 3D point in pixel coordinates from different camera views
 	 * @param cameraMatrices (Input) Camera projection matrices. x = A*X
-	 * @param location (Output) Homogenous coordinate of 3D feature in world coordinates.
+	 * @param location (Output) Homogeneous coordinate of 3D feature in world coordinates.
 	 * @return true if successful, false otherwise.
 	 */
 	boolean triangulate( List<Point2D_F64> observations, List<DMatrixRMaj> cameraMatrices, Point4D_F64 location );

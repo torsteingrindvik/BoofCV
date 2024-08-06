@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -257,7 +257,7 @@ public class MetricSanityChecks implements VerbosePrint {
 				worldP.x = p.getX();
 				worldP.y = p.getY();
 				worldP.z = p.getZ();
-				if (structure.isHomogenous()) {
+				if (structure.isHomogeneous()) {
 					worldP.w = p.getW();
 				}
 				// worldP.w = 1 was already set for 3D points

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -62,7 +62,7 @@ public class ExampleTrifocalTensorUses {
 		// One thing that you can do with a trifocal tensor is transfer points from one view onto another
 		// Similar to what you would do with a homography.
 		AssociatedTriple match = inliers.get(4);
-		Point3D_F64 predicted3 = new Point3D_F64(); // pixel, but in homogenous coordinates
+		Point3D_F64 predicted3 = new Point3D_F64(); // pixel, but in homogeneous coordinates
 		MultiViewOps.transfer_1_to_3(tensor, match.p1, match.p2, predicted3);
 
 		System.out.printf("Predicted x3=(%.1f, %.1f)  actual=(%.1f, %.1f)\n",

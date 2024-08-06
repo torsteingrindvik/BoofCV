@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -115,7 +115,7 @@ public class WorldToCameraToPixel {
 	 * Computes the observed location of the specified point in world coordinates in the camera pixel. If
 	 * the object can't be viewed because it is behind the camera then false is returned.
 	 *
-	 * @param worldPt Location of point in world frame. Homogenous coordinates.
+	 * @param worldPt Location of point in world frame. Homogeneous coordinates.
 	 * @param pixelPt Pixel observation of point.
 	 * @return True if visible (+z) or false if not visible (-z)
 	 */

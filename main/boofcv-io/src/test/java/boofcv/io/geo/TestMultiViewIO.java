@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -351,7 +351,7 @@ class TestMultiViewIO extends BoofStandardJUnit {
 			r.indexFirst = rand.nextInt(10);
 			r.points = new SceneStructureCommon.Point[rand.nextInt(4)];
 			for (int j = 0; j < r.points.length; j++) {
-				r.points[j] = new SceneStructureCommon.Point(ret.isHomogenous() ? 4 : 3);
+				r.points[j] = new SceneStructureCommon.Point(ret.isHomogeneous() ? 4 : 3);
 				randomizePoint(r.points[j]);
 			}
 		}

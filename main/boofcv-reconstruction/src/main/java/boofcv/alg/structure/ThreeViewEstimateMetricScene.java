@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -93,8 +93,8 @@ public class ThreeViewEstimateMetricScene implements VerbosePrint {
 	public ConfigBundleAdjustment configSBA = new ConfigBundleAdjustment();
 	public ConfigConverge convergeSBA = new ConfigConverge(1e-6, 1e-6, 100);
 
-	/** Optimize points in homogenous coordinates */
-	public boolean homogenous = false;
+	/** Optimize points in homogeneous coordinates */
+	public boolean homogeneous = false;
 
 	/** Use to specify if multiple views share a camera. Values from 0 to 2, inclusive. */
 	public int[] viewToCamera = new int[]{0, 0, 0};
@@ -155,7 +155,7 @@ public class ThreeViewEstimateMetricScene implements VerbosePrint {
 	public void declareAlgorithms() {
 		// TODO let it specify image shape for each view independently
 		ransac = FactoryMultiViewRobust.metricThreeViewRansac(configSelfCalib, configRansac);
-		structure = new SceneStructureMetric(homogenous);
+		structure = new SceneStructureMetric(homogeneous);
 		observations = new SceneObservations();
 		bundleAdjustment = FactoryMultiView.bundleSparseMetric(configSBA);
 		bundleAdjustment.configure(convergeSBA.ftol, convergeSBA.gtol, convergeSBA.maxIterations);
@@ -442,7 +442,7 @@ public class ThreeViewEstimateMetricScene implements VerbosePrint {
 	 */
 	private boolean checkBehindCamera( SceneStructureMetric structure ) {
 		int totalBehind = 0;
-		if (homogenous) {
+		if (homogeneous) {
 			var X = new Point4D_F64();
 			for (int i = 0; i < structure.points.size; i++) {
 				structure.points.data[i].get(X);

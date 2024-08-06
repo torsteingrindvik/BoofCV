@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2020, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -25,7 +25,7 @@ import georegression.struct.se.Se3_F64;
 import java.util.List;
 
 /**
- * Triangulate the location of a 3D point in homogenous coordinates from N views a calibrated camera and known poses.
+ * Triangulate the location of a 3D point in homogeneous coordinates from N views a calibrated camera and known poses.
  *
  * @author Peter Abeles
  */

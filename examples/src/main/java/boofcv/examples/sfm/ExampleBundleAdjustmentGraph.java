@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -55,8 +55,8 @@ public class ExampleBundleAdjustmentGraph {
 		var view0_to_view1 = eulerXyz(-0.15, 0.05, 0, 0, 0, 0.05, null);
 
 		// Initialize data structures by telling it the number of features, cameras, views, motions
-		// Homogenous coordinates will be used since they can handle points at infinity
-		var structure = new SceneStructureMetric(/*homogenous*/ true);
+		// Homogeneous coordinates will be used since they can handle points at infinity
+		var structure = new SceneStructureMetric(/*homogeneous*/ true);
 		var observations = new SceneObservations();
 
 		// Index of the motion where the stereo baseline is stored

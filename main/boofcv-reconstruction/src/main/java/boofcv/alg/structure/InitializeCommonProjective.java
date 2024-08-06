@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -90,7 +90,7 @@ public class InitializeCommonProjective implements VerbosePrint {
 
 	//-------------- Internal workspace variables
 	protected final int[] selectedTriple = new int[2];
-	// triangulated 3D homogenous points in seed reference frame
+	// triangulated 3D homogeneous points in seed reference frame
 	protected final DogArray<Point4D_F64> points3D = new DogArray<>(Point4D_F64::new);
 	// Associated pixel observations
 	protected final DogArray<AssociatedPair> assocPixel = new DogArray<>(AssociatedPair::new);
@@ -420,8 +420,8 @@ public class InitializeCommonProjective implements VerbosePrint {
 			assocPixel.get(i).p2.setTo(featsB.get(dstIdx));
 		}
 
-		// Estimate the camera matrix given homogenous pixel observations
-		if (utils.poseEstimator.processHomogenous(assocPixel.toList(), points3D.toList())) {
+		// Estimate the camera matrix given homogeneous pixel observations
+		if (utils.poseEstimator.processHomogeneous(assocPixel.toList(), points3D.toList())) {
 			cameraMatrix.setTo(utils.poseEstimator.getProjective());
 			return true;
 		} else {

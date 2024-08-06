@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -25,7 +25,7 @@ import org.ejml.data.DMatrixRMaj;
 /**
  * Specifies a scene in an arbitrary projective geometry for Bundle Adjustment. Each view
  * is specified using a 3x4 projective camera matrix. Points for the scene can be 3D or 4D
- * homogenous coordinates.
+ * homogeneous coordinates.
  *
  * @author Peter Abeles
  */
@@ -35,10 +35,10 @@ public class SceneStructureProjective extends SceneStructureCommon {
 	/**
 	 * Configure bundle adjustment
 	 *
-	 * @param homogenous if true then homogeneous coordinates are used
+	 * @param homogeneous if true then homogeneous coordinates are used
 	 */
-	public SceneStructureProjective( boolean homogenous ) {
-		super(homogenous);
+	public SceneStructureProjective( boolean homogeneous ) {
+		super(homogeneous);
 	}
 
 	/**

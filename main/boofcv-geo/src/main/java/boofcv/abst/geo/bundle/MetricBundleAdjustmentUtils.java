@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -56,9 +56,9 @@ public class MetricBundleAdjustmentUtils implements VerbosePrint {
 
 	@Nullable PrintStream verbose;
 
-	public MetricBundleAdjustmentUtils( @Nullable ConfigTriangulation triangulation, boolean homogenous ) {
+	public MetricBundleAdjustmentUtils( @Nullable ConfigTriangulation triangulation, boolean homogeneous ) {
 		triangulator = FactoryMultiView.triangulateNViewMetricH(triangulation);
-		structure = new SceneStructureMetric(homogenous);
+		structure = new SceneStructureMetric(homogeneous);
 
 		var configSba = new ConfigBundleAdjustment();
 		configSba.optimizer.type = ConfigNonLinearLeastSquares.Type.LEVENBERG_MARQUARDT;

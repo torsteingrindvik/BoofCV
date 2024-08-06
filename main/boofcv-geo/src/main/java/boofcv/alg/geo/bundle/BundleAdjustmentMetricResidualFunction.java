@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -79,7 +79,7 @@ public class BundleAdjustmentMetricResidualFunction
 	// Look up workspace by view ID when relative view
 	private final Map<SceneStructureMetric.View, Se3_F64> mapWorldToView = new HashMap<>();
 
-	// Storage for 3D points in Cartesian and homogenous coordinates
+	// Storage for 3D points in Cartesian and homogeneous coordinates
 	private final Point3D_F64 p3 = new Point3D_F64();
 	private final Point4D_F64 p4 = new Point4D_F64();
 
@@ -125,7 +125,7 @@ public class BundleAdjustmentMetricResidualFunction
 		codec.decode(input, structure);
 
 		// Project the general scene now
-		if (structure.isHomogenous())
+		if (structure.isHomogeneous())
 			project4(output);
 		else
 			project3(output);
@@ -136,7 +136,7 @@ public class BundleAdjustmentMetricResidualFunction
 	 * compute the residuals and not optimizing
 	 */
 	public void process( double[] output ) {
-		if (structure.isHomogenous())
+		if (structure.isHomogeneous())
 			project4(output);
 		else
 			project3(output);
@@ -211,7 +211,7 @@ public class BundleAdjustmentMetricResidualFunction
 	}
 
 	/**
-	 * projection from homogenous coordinates
+	 * projection from homogeneous coordinates
 	 */
 	private void project4( double[] output ) {
 		int observationIndex = 0;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -176,7 +176,7 @@ public class VisOdomDualTrackPnP<T extends ImageBase<T>, TD extends TupleDesc<TD
 		bundleViso = new VisOdomBundleAdjustment<>(TrackInfo::new);
 
 		// TODO would be best if this reduced pixel error and not geometric error
-		// TODO remove and replace with calibrated homogenous coordinates when it exists
+		// TODO remove and replace with calibrated homogeneous coordinates when it exists
 		ConfigTriangulation config = new ConfigTriangulation();
 		config.type = ConfigTriangulation.Type.GEOMETRIC;
 		config.converge.maxIterations = 10;
@@ -358,7 +358,7 @@ public class VisOdomDualTrackPnP<T extends ImageBase<T>, TD extends TupleDesc<TD
 
 			// Get the 3D coordinate of the point in the 'previous' frame
 			SePointOps_F64.transform(world_to_prev, bt.worldLoc, prevLoc4);
-			PerspectiveOps.homogenousTo3dPositiveZ(prevLoc4, 1e8, 1e-8, stereo.location);
+			PerspectiveOps.homogeneousTo3dPositiveZ(prevLoc4, 1e8, 1e-8, stereo.location);
 
 			// compute normalized image coordinate for track in left and right image
 			leftCM.pixelToNorm.compute(l.pixel.x, l.pixel.y, stereo.leftObs);

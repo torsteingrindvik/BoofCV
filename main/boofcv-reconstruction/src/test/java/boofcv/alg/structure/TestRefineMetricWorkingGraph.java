@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -263,7 +263,7 @@ class TestRefineMetricWorkingGraph extends BoofStandardJUnit {
 		var normToPixels = new LensDistortionPinhole(intrinsic).distort_F64(false, true);
 		var observed = PerspectiveOps.renderPixel(world_to_vew, intrinsic, X, null);
 		Objects.requireNonNull(observed);
-		// homogenous coordinates are scale invariant
+		// homogeneous coordinates are scale invariant
 		X.scale(-5.0);
 
 		var alg = new RefineMetricWorkingGraph();

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -211,7 +211,7 @@ public class EstimateViewUtils {
 				throw new RuntimeException("Triangulation failed. Possibly bad input. Handle this problem");
 			}
 
-			if (structure.isHomogenous())
+			if (structure.isHomogeneous())
 				structure.setPoint(inlierCnt, foundX.x, foundX.y, foundX.z, foundX.w);
 			else
 				structure.setPoint(inlierCnt, foundX.x/foundX.w, foundX.y/foundX.w, foundX.z/foundX.w);

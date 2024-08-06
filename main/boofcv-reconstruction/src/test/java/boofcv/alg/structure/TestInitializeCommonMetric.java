@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -84,7 +84,7 @@ class TestInitializeCommonMetric extends GenericInitializeCommon {
 							  DogArray_I32 seedConnIdx) {
 
 		final SceneStructureMetric structure = alg.getStructure();
-		assertFalse(structure.isHomogenous(), "Code below assumes cartesian and not homogenous");
+		assertFalse(structure.isHomogeneous(), "Code below assumes cartesian and not homogeneous");
 
 		// Sanity check the number of each type of structure
 		assertEquals(seedConnIdx.size + 1, structure.views.size);

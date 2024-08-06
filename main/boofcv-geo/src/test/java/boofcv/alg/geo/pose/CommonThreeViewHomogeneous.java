@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -34,7 +34,7 @@ import org.ejml.data.DMatrixRMaj;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class CommonThreeViewHomogenous extends BoofStandardJUnit {
+public abstract class CommonThreeViewHomogeneous extends BoofStandardJUnit {
 	protected DMatrixRMaj K = PerspectiveOps.pinholeToMatrix(
 			new CameraPinhole(500,500,0,250,250,1000,1000),(DMatrixRMaj)null);
 

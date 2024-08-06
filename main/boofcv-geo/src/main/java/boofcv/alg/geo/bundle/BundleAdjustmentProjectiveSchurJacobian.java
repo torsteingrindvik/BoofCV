@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -50,13 +50,13 @@ public abstract class BundleAdjustmentProjectiveSchurJacobian<M extends DMatrix>
 	// total number of parameters being optimized
 	private int numParameters;
 
-	// length of a 3D point. 3 = regular, 4 = homogenous
+	// length of a 3D point. 3 = regular, 4 = homogeneous
 	private int lengthPoint;
 
 	// feature location in world coordinates
 	private final Point4D_F64 worldPt = new Point4D_F64();
 
-	// Observed pixel in homogenous coordinates. X'=P*X
+	// Observed pixel in homogeneous coordinates. X'=P*X
 	private final Point3D_F64 pixelH = new Point3D_F64();
 
 	// index in parameters of the first point
@@ -89,7 +89,7 @@ public abstract class BundleAdjustmentProjectiveSchurJacobian<M extends DMatrix>
 		this.structure = structure;
 		this.observations = observations;
 
-		if (!structure.isHomogenous()) {
+		if (!structure.isHomogeneous()) {
 			worldPt.w = 1;
 			lengthPoint = 3;
 		} else {
@@ -179,7 +179,7 @@ public abstract class BundleAdjustmentProjectiveSchurJacobian<M extends DMatrix>
 				worldPt.x = input[columnOfPointInJac];
 				worldPt.y = input[columnOfPointInJac + 1];
 				worldPt.z = input[columnOfPointInJac + 2];
-				if (structure.isHomogenous()) {
+				if (structure.isHomogeneous()) {
 					worldPt.w = input[columnOfPointInJac + 3];
 				}
 
@@ -187,14 +187,14 @@ public abstract class BundleAdjustmentProjectiveSchurJacobian<M extends DMatrix>
 				PerspectiveOps.renderPixel(worldToView, worldPt, pixelH);
 
 				if (view.known) {
-					if (structure.isHomogenous())
+					if (structure.isHomogeneous())
 						partialCameraMatrixH(worldPt.x, worldPt.y, worldPt.z, worldPt.w,
 								worldToView, worldGradX, worldGradY, worldGradZ, null, null, null);
 					else
 						partialCameraMatrix(worldPt.x, worldPt.y, worldPt.z,
 								worldToView, worldGradX, worldGradY, worldGradZ, null, null, null);
 				} else {
-					if (structure.isHomogenous())
+					if (structure.isHomogeneous())
 						partialCameraMatrixH(worldPt.x, worldPt.y, worldPt.z, worldPt.w,
 								worldToView, worldGradX, worldGradY, worldGradZ, camGradX, camGradY, camGradZ);
 					else

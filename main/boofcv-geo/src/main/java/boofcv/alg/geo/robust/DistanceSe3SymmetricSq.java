@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * <p>
  * Computes the error for a given camera motion from two calibrated views. First a point
- * is triangulated in homogenous coordinates from the two views and the motion. Then the difference between
+ * is triangulated in homogeneous coordinates from the two views and the motion. Then the difference between
  * the observed and projected point is found at each view. Error is normalized pixel difference
  * squared.
  * </p>
@@ -42,7 +42,7 @@ import java.util.List;
  * &Delta;x<sub>2</sub><sup>2</sup> + &Delta;y<sub>2</sub><sup>2</sup>
  * </p>
  *
- * <p>Homogenous coordinates are used so that pure/nearly pure rotation can be handled. Points will be at infinity.</p>
+ * <p>Homogeneous coordinates are used so that pure/nearly pure rotation can be handled. Points will be at infinity.</p>
  *
  * <p>
  * Error units can be in either pixels<sup>2</sup> or unit less (normalized pixel coordinates). To compute

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Peter Abeles
  */
-public abstract class ChecksMotionNPointHomogenous extends CommonMotionNPointHomogenous {
+public abstract class ChecksMotionNPointHomogeneous extends CommonMotionNPointHomogeneous {
 
 	public abstract DMatrixRMaj compute( List<AssociatedPair> obs, List<Point4D_F64> locations );
 

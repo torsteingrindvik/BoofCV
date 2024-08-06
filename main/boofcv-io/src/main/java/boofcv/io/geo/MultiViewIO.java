@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -252,7 +252,7 @@ public class MultiViewIO {
 		data.put("rigids", rigids);
 		data.put("cameras", cameras);
 		data.put("points", points);
-		data.put("homogenous", scene.isHomogenous());
+		data.put("homogeneous", scene.isHomogeneous());
 		data.put("data_type", "SceneStructureMetric");
 		data.put("version", 0);
 
@@ -464,7 +464,7 @@ public class MultiViewIO {
 		Map<String, Object> data = yaml.load(reader);
 		try {
 			reader.close();
-			boolean homogenous = getOrThrow(data, "homogenous");
+			boolean homogeneous = getOrThrow(data, "homogeneous");
 
 			List<Map<String, Object>> yamlViews = getOrThrow(data, "views");
 			List<Map<String, Object>> yamlMotions = getOrThrow(data, "motions");
@@ -472,10 +472,10 @@ public class MultiViewIO {
 			List<Map<String, Object>> yamlCameras = getOrThrow(data, "cameras");
 			List<Map<String, Object>> yamlPoints = getOrThrow(data, "points");
 
-			if (scene != null && scene.isHomogenous() != homogenous)
+			if (scene != null && scene.isHomogeneous() != homogeneous)
 				scene = null;
 			if (scene == null)
-				scene = new SceneStructureMetric(homogenous);
+				scene = new SceneStructureMetric(homogeneous);
 			scene.initialize(
 					yamlCameras.size(), yamlViews.size(), yamlMotions.size(), yamlPoints.size(), yamlRigids.size());
 
@@ -498,7 +498,7 @@ public class MultiViewIO {
 				SceneStructureMetric.Rigid r = scene.rigids.get(i);
 				Map<String, Object> yamlRigid = yamlRigids.get(i);
 				List<Map<String, Object>> points = getOrThrow(yamlRigid, "points");
-				r.init(points.size(), scene.isHomogenous() ? 4 : 3);
+				r.init(points.size(), scene.isHomogeneous() ? 4 : 3);
 				r.known = getOrThrow(yamlRigid, "known");
 				r.indexFirst = getOrThrow(yamlRigid, "indexFirst");
 				loadSE3(getOrThrow(yamlRigid, "object_to_world"), r.object_to_world);

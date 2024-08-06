@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -37,7 +37,7 @@ public interface Triangulate2ViewsProjective {
 	 * @param obsB View from position B in pixels
 	 * @param projectionA Camera matrix for view A. x = P*X
 	 * @param projectionB Camera matrix for view B. x = P*X
-	 * @param foundInA The found triangulated 3D point in A's reference frame. Homogenous coordinates.
+	 * @param foundInA The found triangulated 3D point in A's reference frame. Homogeneous coordinates.
 	 * @return true if successful, false otherwise.
 	 */
 	boolean triangulate( Point2D_F64 obsA, Point2D_F64 obsB,

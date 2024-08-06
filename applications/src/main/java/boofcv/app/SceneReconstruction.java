@@ -620,7 +620,7 @@ public class SceneReconstruction {
 	}
 
 	private void saveSparseCloudToDisk( File outputDirectory ) {
-		checkTrue(scene.isHomogenous());
+		checkTrue(scene.isHomogeneous());
 		List<Point3D_F64> cloudXyz = new ArrayList<>();
 		Point4D_F64 world = new Point4D_F64();
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -76,7 +76,7 @@ public class NarrowToWidePtoP_F64 implements Point2Transform2_F64 {
 	public void compute( double x, double y, Point2D_F64 out ) {
 		narrowToNorm.compute(x, y, norm);
 
-		// Convert from 2D homogenous to 3D
+		// Convert from 2D homogeneous to 3D
 		unit.setTo(norm.x, norm.y, 1.0);
 
 		// Rotate then make it a unit vector

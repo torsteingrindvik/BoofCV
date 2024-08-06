@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -101,7 +101,7 @@ public class RefineMetricWorkingGraph implements VerbosePrint {
 	private final Point2D_F64 pixelObserved = new Point2D_F64();
 	// storage for predicted pixel
 	private final Point2D_F64 pixelPredicted = new Point2D_F64();
-	// storage for 3D feature in homogenous coordinates in world reference frame
+	// storage for 3D feature in homogeneous coordinates in world reference frame
 	private final Point4D_F64 world3D = new Point4D_F64();
 	// 3D feature in camera coordinates
 	private final Point4D_F64 camera3D = new Point4D_F64();
@@ -462,7 +462,7 @@ public class RefineMetricWorkingGraph implements VerbosePrint {
 		int pointID = structure.points.size;
 		SceneStructureCommon.Point point3D = structure.points.grow();
 
-		if (structure.isHomogenous())
+		if (structure.isHomogeneous())
 			point3D.set(found3D.x, found3D.y, found3D.z, found3D.w);
 		else
 			point3D.set(found3D.x/found3D.w, found3D.y/found3D.w, found3D.z/found3D.w);

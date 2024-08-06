@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -1376,8 +1376,8 @@ class TestMultiViewOps extends BoofStandardJUnit {
 	}
 
 	@Test void sceneToCloud3() {
-		for (boolean homogenous : new boolean[]{false, true}) {
-			var helper = new BundleSceneHelper(homogenous, 10);
+		for (boolean homogeneous : new boolean[]{false, true}) {
+			var helper = new BundleSceneHelper(homogeneous, 10);
 			MultiViewOps.sceneToCloud3(helper.scene, 1e-8, ( idx, coor ) -> {
 				assertEquals(0.0, helper.cloud3.get(idx).distance(coor), UtilEjml.TEST_F64);
 				helper.counter++;
@@ -1387,8 +1387,8 @@ class TestMultiViewOps extends BoofStandardJUnit {
 	}
 
 	@Test void sceneToCloudH() {
-		for (boolean homogenous : new boolean[]{false, true}) {
-			var helper = new BundleSceneHelper(homogenous, 10);
+		for (boolean homogeneous : new boolean[]{false, true}) {
+			var helper = new BundleSceneHelper(homogeneous, 10);
 			MultiViewOps.sceneToCloudH(helper.scene, ( idx, coor ) -> {
 				double distance = PerspectiveOps.distance3DvsH(helper.cloud3.get(idx), coor, 1e-8);
 				assertEquals(0.0, distance, UtilEjml.TEST_F64);
@@ -1485,7 +1485,7 @@ class TestMultiViewOps extends BoofStandardJUnit {
 		List<Point3D_F64> cloud3;
 		int counter;
 
-		public BundleSceneHelper( boolean homogenous, int numPoints ) {
+		public BundleSceneHelper( boolean homogeneous, int numPoints ) {
 			world_to_view0 = SpecialEuclideanOps_F64.eulerXyz(0, 0.1, -0.2, 0.02, -0.04, 0.03, null);
 			world_to_view1 = SpecialEuclideanOps_F64.eulerXyz(0.3, 0.1, 0.2, 0.01, -0.06, 0.02, null);
 
@@ -1493,14 +1493,14 @@ class TestMultiViewOps extends BoofStandardJUnit {
 			cloud3 = UtilPoint3D_F64.random(new Point3D_F64(0, 0, 2),
 					-1, 1, -1, 1, -0.1, 0.1, numPoints, rand);
 
-			scene = new SceneStructureMetric(homogenous);
+			scene = new SceneStructureMetric(homogeneous);
 			scene.initialize(1, 3, numPoints);
 			scene.setCamera(0, true, intrinsic);
 			scene.setView(0, 0, true, world_to_view0);
 			scene.setView(1, 0, true, world_to_view1);
 			for (int i = 0; i < cloud3.size(); i++) {
 				Point3D_F64 p = cloud3.get(i);
-				if (homogenous) {
+				if (homogeneous) {
 					double w = rand.nextDouble() + 0.1;
 					scene.setPoint(i, p.x*w, p.y*w, p.z*w, w);
 				} else {

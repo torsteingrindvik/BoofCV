@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -23,7 +23,7 @@ import lombok.Getter;
 
 /**
  * <p>
- * The observed location of a feature in two camera views. Typically a point in homogenous coordinates a line.
+ * The observed location of a feature in two camera views. Typically a point in homogeneous coordinates a line.
  * </p>
  *
  * @author Peter Abeles

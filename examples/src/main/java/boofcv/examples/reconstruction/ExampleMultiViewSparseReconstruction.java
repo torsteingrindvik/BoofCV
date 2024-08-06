@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -348,7 +348,7 @@ public class ExampleMultiViewSparseReconstruction {
 	 * scene.
 	 */
 	public void visualizeSparseCloud() {
-		checkTrue(scene.isHomogenous());
+		checkTrue(scene.isHomogeneous());
 		List<Point3D_F64> cloudXyz = new ArrayList<>();
 		Point4D_F64 world = new Point4D_F64();
 
@@ -365,7 +365,7 @@ public class ExampleMultiViewSparseReconstruction {
 				( viewIdx ) -> viewIdx + "", // String encodes the image's index
 				( pointIdx, r, g, b ) -> rgb.set(pointIdx, (r << 16) | (g << 8) | b)); // Assign the RGB color
 
-		// Convert the structure into regular 3D points from homogenous
+		// Convert the structure into regular 3D points from homogeneous
 		for (int i = 0; i < scene.points.size; i++) {
 			scene.points.get(i).get(world);
 			// If the point is at infinity it's not clear what to do. It would be best to skip it then the color

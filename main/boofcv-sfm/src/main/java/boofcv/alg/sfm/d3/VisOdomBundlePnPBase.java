@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -169,7 +169,7 @@ public abstract class VisOdomBundlePnPBase<Track extends VisOdomBundleAdjustment
 				// NOTE: This invert could be cached. Doesn't need to be done a million times
 			}
 
-			// NOTE: If there is a homogenous metric triangulation added in the future replace this with that
+			// NOTE: If there is a homogeneous metric triangulation added in the future replace this with that
 			if (triangulateN.triangulate(observationsNorm.toList(), listOf_world_to_frame.toList(), found3D)) {
 				bt.worldLoc.x = found3D.x;
 				bt.worldLoc.y = found3D.y;

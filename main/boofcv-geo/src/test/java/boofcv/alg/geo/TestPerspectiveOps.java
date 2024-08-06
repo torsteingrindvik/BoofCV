@@ -391,7 +391,7 @@ class TestPerspectiveOps extends BoofStandardJUnit {
 		assertEquals(expected.y, found.y, 1e-8);
 	}
 
-	@Test void renderPixel_SE3_homogenous() {
+	@Test void renderPixel_SE3_homogeneous() {
 		var X3 = new Point3D_F64(0.1, -0.05, 3);
 		var X4 = new Point4D_F64(0.1, -0.05, 3, 1);
 		X4.scale(1.2);
@@ -719,19 +719,19 @@ class TestPerspectiveOps extends BoofStandardJUnit {
 		assertEquals(expected, found, UtilEjml.TEST_F64_SQ);
 	}
 
-	@Test void homogenousTo3dPositiveZ() {
+	@Test void homogeneousTo3dPositiveZ() {
 		Point3D_F64 found = new Point3D_F64();
-		PerspectiveOps.homogenousTo3dPositiveZ(new Point4D_F64(4, 6, 8, 2), 1e8, 1e-8, found);
+		PerspectiveOps.homogeneousTo3dPositiveZ(new Point4D_F64(4, 6, 8, 2), 1e8, 1e-8, found);
 		assertEquals(0.0, found.distance(2, 3, 4), UtilEjml.TEST_F64);
 
 		// positive constraint is only enforced for points at infinity
-		PerspectiveOps.homogenousTo3dPositiveZ(new Point4D_F64(4, 6, 8, -2), 1e8, 1e-8, found);
+		PerspectiveOps.homogeneousTo3dPositiveZ(new Point4D_F64(4, 6, 8, -2), 1e8, 1e-8, found);
 		assertEquals(0.0, found.distance(-2, -3, -4), UtilEjml.TEST_F64);
 
 		// point at infinity. chose to put it in front with positive z
 		double r = 1e8;
 		double d = Math.sqrt(4.0*4.0 + 6.0*6.0 + 8.0*8.0);
-		PerspectiveOps.homogenousTo3dPositiveZ(new Point4D_F64(-4, -6, -8, 0), r, 1e-8, found);
+		PerspectiveOps.homogeneousTo3dPositiveZ(new Point4D_F64(-4, -6, -8, 0), r, 1e-8, found);
 		assertEquals(0.0, found.distance(4*r/d, 6*r/d, 8*r/d), UtilEjml.TEST_F64);
 	}
 
@@ -746,13 +746,13 @@ class TestPerspectiveOps extends BoofStandardJUnit {
 		assertEquals(Double.POSITIVE_INFINITY, PerspectiveOps.distance3DvsH(a, b, 1e-8));
 	}
 
-	@Test void isBehindCamera_homogenous() {
+	@Test void isBehindCamera_homogeneous() {
 		// Easy numerically
-		isBehindCamera_homogenous(1.0);
+		isBehindCamera_homogeneous(1.0);
 
 		// Check for underflow and overflow issues
-		isBehindCamera_homogenous(1e20);
-		isBehindCamera_homogenous(1e-20);
+		isBehindCamera_homogeneous(1e20);
+		isBehindCamera_homogeneous(1e-20);
 
 		// Check an edge case
 		assertTrue(PerspectiveOps.isBehindCamera(new Point4D_F64(0, 0, 0, 0)));
@@ -766,7 +766,7 @@ class TestPerspectiveOps extends BoofStandardJUnit {
 		checkBehindSwapSign(new Point4D_F64(0, 0, 1, Double.POSITIVE_INFINITY), false);
 	}
 
-	void isBehindCamera_homogenous( double v ) {
+	void isBehindCamera_homogeneous( double v ) {
 		// Standard scenarios
 		checkBehindSwapSign(new Point4D_F64(0, 0, -v, v), true);
 		checkBehindSwapSign(new Point4D_F64(0, 0, v, v), false);

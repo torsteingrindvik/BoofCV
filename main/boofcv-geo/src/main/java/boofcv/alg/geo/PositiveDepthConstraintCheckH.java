@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -35,7 +35,7 @@ import georegression.transform.se.SePointOps_F64;
  * if you use this class.
  * </p>
  *
- * <p>Triangulation is done in homogenous coordinates so that points at infinity can be handled</p>
+ * <p>Triangulation is done in homogeneous coordinates so that points at infinity can be handled</p>
  *
  * <p>
  * COORDINATE SYSTEM: Right handed coordinate system with +z is pointing along the camera's optical axis,

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -150,7 +150,7 @@ public class HomographyDirectLinearTransform {
 		int numRows = computeTotalRows(num2D, num3D, numConic);
 
 		// only 2D points need to be normalzied because of the implicit z=1
-		// 3D points are homogenous or lines and the vector can be normalized to 1
+		// 3D points are homogeneous or lines and the vector can be normalized to 1
 		// same goes for the conic equation
 		shouldNormalize = false;//normalize && points2D != null;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -69,7 +69,7 @@ public class CommonTriangulationChecks extends BoofStandardJUnit {
 
 	public void createScene( Point4D_F64 point ) {
 		worldPointH = point.copy();
-		PerspectiveOps.homogenousTo3dPositiveZ(point, Double.MAX_VALUE, 1e-16, worldPoint);
+		PerspectiveOps.homogeneousTo3dPositiveZ(point, Double.MAX_VALUE, 1e-16, worldPoint);
 		motionWorldToCamera = new ArrayList<>();
 		obsNorm = new ArrayList<>();
 		obsPointing = new ArrayList<>();

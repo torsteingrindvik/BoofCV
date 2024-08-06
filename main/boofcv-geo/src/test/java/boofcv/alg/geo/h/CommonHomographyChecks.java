@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -77,7 +77,7 @@ public class CommonHomographyChecks extends BoofStandardJUnit {
 			AssociatedPair p2 = pairs2D.get(i);
 			AssociatedPair3D p3 = new AssociatedPair3D();
 
-			// same point but in homogenous coordinates and Z isn't always 1
+			// same point but in homogeneous coordinates and Z isn't always 1
 			double z = 1.0 + rand.nextGaussian()*0.1;
 			p3.p1.setTo(p2.p1.x*z, p2.p1.y*z, z);
 			p3.p2.setTo(p2.p2.x*z, p2.p2.y*z, z);

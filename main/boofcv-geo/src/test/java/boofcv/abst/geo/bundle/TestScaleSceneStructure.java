@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -53,15 +53,15 @@ class TestScaleSceneStructure extends BoofStandardJUnit {
 
 	@Test void apply_undo_metric() {
 		for (int h = 0; h < 2; h++) {
-			boolean homogenous = h == 1;
+			boolean homogeneous = h == 1;
 
 			var alg = new ScaleSceneStructure();
 
 			alg.medianPoint.setTo(0.5, 0.9, 1.3);
 			alg.medianDistancePoint = 1.2;
 
-			var expected = new SceneStructureMetric(homogenous);
-			var found = new SceneStructureMetric(homogenous);
+			var expected = new SceneStructureMetric(homogeneous);
+			var found = new SceneStructureMetric(homogeneous);
 
 			SceneObservations obs = createProjectiveScene(found, 0xBEEF);
 			createProjectiveScene(expected, 0xBEEF);
@@ -92,14 +92,14 @@ class TestScaleSceneStructure extends BoofStandardJUnit {
 			boolean pointsStats = p == 1;
 
 			for (int h = 0; h < 2; h++) {
-				boolean homogenous = h == 1;
+				boolean homogeneous = h == 1;
 				var alg = new ScaleSceneStructure();
 				alg.setScalePixelsUsingStats(pointsStats);
 				alg.medianPoint.setTo(0.5, 0.9, 1.3);
 				alg.medianDistancePoint = 1.2;
 
-				var expected = new SceneStructureProjective(homogenous);
-				var found = new SceneStructureProjective(homogenous);
+				var expected = new SceneStructureProjective(homogeneous);
+				var found = new SceneStructureProjective(homogeneous);
 
 				SceneObservations obs = createProjectiveScene(found, 0xBEEF);
 				createProjectiveScene(expected, 0xBEEF);
@@ -110,7 +110,7 @@ class TestScaleSceneStructure extends BoofStandardJUnit {
 				alg.applyScale(found, obs);
 
 				// Make sure it was changed
-				if (!homogenous) {
+				if (!homogeneous) {
 					// can't normalize camera matrix in this situation
 					for (int i = 0; i < expected.views.size; i++) {
 						double error = SpecializedOps_DDRM.diffNormF(expected.views.data[i].worldToView, found.views.data[i].worldToView);
@@ -134,7 +134,7 @@ class TestScaleSceneStructure extends BoofStandardJUnit {
 	 * Very basic check to see if observations are scaled from -0.5 to 0.5
 	 */
 	@Test void applyScaleToPixelsAndCameraMatrix() {
-		// homogenous or not doesn't matter
+		// homogeneous or not doesn't matter
 		var structure = new SceneStructureProjective(false);
 
 		SceneObservations obs = createProjectiveScene(structure, 0xBEEF);
@@ -188,7 +188,7 @@ class TestScaleSceneStructure extends BoofStandardJUnit {
 		for (int i = 0; i < scene.points.size; i++) {
 			// Point in world frame
 			var X = new Point3D_F64(rand.nextGaussian(), rand.nextGaussian(), 3 + rand.nextGaussian());
-			if (scene.homogenous) {
+			if (scene.homogeneous) {
 				scene.points.data[i].set(X.x, X.y, X.z, 1);
 			} else {
 				scene.points.data[i].set(X.x, X.y, X.z);
@@ -243,7 +243,7 @@ class TestScaleSceneStructure extends BoofStandardJUnit {
 		for (int i = 0; i < scene.points.size; i++) {
 			// Point in world frame
 			var X = new Point3D_F64(rand.nextGaussian(), rand.nextGaussian(), 3 + rand.nextGaussian());
-			if (scene.homogenous) {
+			if (scene.homogeneous) {
 				scene.points.data[i].set(X.x, X.y, X.z, 1);
 			} else {
 				scene.points.data[i].set(X.x, X.y, X.z);

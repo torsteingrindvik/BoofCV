@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -42,7 +42,7 @@ import java.util.List;
  * [                                 ...               ]  = [ ... ]
  * [ &lambda;[N,1]*x[1,1] , &lambda;[N,2]*x[1,2] , ... , &lambda;[N,M]*x[N,M] ]  = [ P[M] ]
  * </pre>
- * where &lambda; is the depth, x is homogenous pixel coordinate, P is 3x4 projective, X is 3D feature location in
+ * where &lambda; is the depth, x is homogeneous pixel coordinate, P is 3x4 projective, X is 3D feature location in
  * world coordinate system.
  *
  * Procedure:
@@ -232,7 +232,7 @@ public class ProjectiveStructureByFactorization {
 	 * Returns location of 3D feature for a view
 	 *
 	 * @param feature Index of feature to retrieve
-	 * @param out (Output) Storage for 3D feature. homogenous coordinates
+	 * @param out (Output) Storage for 3D feature. homogeneous coordinates
 	 */
 	public void getFeature3D( int feature, Point4D_F64 out ) {
 		out.x = X.get(0, feature);
@@ -252,7 +252,7 @@ public class ProjectiveStructureByFactorization {
 			for (int pointIdx = 0; pointIdx < depths.numCols; pointIdx++) {
 				double depth = depths.get(viewIdx, pointIdx);
 
-				// pixels are in homogenous coordinates A(:,i) = depth*(x,y,1)
+				// pixels are in homogeneous coordinates A(:,i) = depth*(x,y,1)
 				A.set(rowA, pointIdx, depth*pixels.get(rowPixels, pointIdx)/pixelScale);
 				A.set(rowA + 1, pointIdx, depth*pixels.get(rowPixels + 1, pointIdx)/pixelScale);
 				A.set(rowA + 2, pointIdx, depth);

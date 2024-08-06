@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -607,7 +607,7 @@ public class FactoryMultiView {
 	}
 
 	/**
-	 * Triangulate a homogenous point from N metric views given observations in normalized image coordinates.
+	 * Triangulate a homogeneous point from N metric views given observations in normalized image coordinates.
 	 *
 	 * @return N-view triangulation algorithm
 	 * @see TriangulateMetricLinearDLT
@@ -630,7 +630,7 @@ public class FactoryMultiView {
 	}
 
 	/**
-	 * Triangulate a homogenous point from N projective views given observations in pixel coordinates.
+	 * Triangulate a homogeneous point from N projective views given observations in pixel coordinates.
 	 *
 	 * @return N-view triangulation algorithm
 	 * @see TriangulateProjectiveLinearDLT
@@ -671,7 +671,7 @@ public class FactoryMultiView {
 	}
 
 	/**
-	 * Triangulate a point in homogenous coordinates from N views given observations as pointing vectors.
+	 * Triangulate a point in homogeneous coordinates from N views given observations as pointing vectors.
 	 *
 	 * @return N-view triangulation algorithm
 	 * @see TriangulateMetricLinearDLT

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -149,7 +149,7 @@ public class VisOdomStereoQuadPnP<T extends ImageGray<T>, TD extends TupleDesc<T
 	private final Se3_F64 found = new Se3_F64();
 
 	{
-		bundle.structure.setHomogenous(false);
+		bundle.structure.setHomogeneous(false);
 		bundle.configConverge.setTo(new ConfigConverge(1e-5, 1e-5, 4));
 	}
 

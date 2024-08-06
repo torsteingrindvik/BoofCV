@@ -8,6 +8,12 @@ Version Meaning: <compatible>.<feature>.<bug fix>
 
 ---------------------
 Date    : 2024/XXX/XX
+Version : 1.1.6
+
+- Homogenous -> Homogeneous (Wide spread spelling error)
+
+---------------------
+Date    : 2024/Jun/27
 Version : 1.1.5
 
 - PerspectiveOps

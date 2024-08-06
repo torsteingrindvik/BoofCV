@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -71,14 +71,14 @@ public class Triangulate2ViewsGeometricMetric {
 
 	/**
 	 * <p>
-	 * Same as {@link #triangulate(Point2D_F64, Point2D_F64, Se3_F64, Point3D_F64)} but in homogenous coordinates
+	 * Same as {@link #triangulate(Point2D_F64, Point2D_F64, Se3_F64, Point3D_F64)} but in homogeneous coordinates
 	 * and can handle points at infinity.
 	 * </p>
 	 *
 	 * @param a Observation from camera view 'a' in normalized coordinates. Not modified.
 	 * @param b Observation from camera view 'b' in normalized coordinates. Not modified.
 	 * @param a_to_b Transformation from camera view 'a' to 'b'  Not modified.
-	 * @param foundInA (Output) Found 3D position of the point in reference frame 'a'. Homogenous coordinates. Modified.
+	 * @param foundInA (Output) Found 3D position of the point in reference frame 'a'. Homogeneous coordinates. Modified.
 	 */
 	public void triangulate( Point2D_F64 a, Point2D_F64 b, Se3_F64 a_to_b, Point4D_F64 foundInA ) {
 		// b_to_a = R'*(X_b-T)=X_a
@@ -101,13 +101,13 @@ public class Triangulate2ViewsGeometricMetric {
 	/**
 	 * <p>
 	 * Triangulates two observations that are 3D pointing vectors and saves the results ad a 3D point in
-	 * homogenous coordinates.
+	 * homogeneous coordinates.
 	 * </p>
 	 *
 	 * @param a Observation from camera view 'a' as a 3D pointing vector. Not modified.
 	 * @param b Observation from camera view 'b' as a 3D pointing vector. Not modified.
 	 * @param a_to_b Transformation from camera view 'a' to 'b'  Not modified.
-	 * @param foundInA (Output) Found 3D position of the point in reference frame 'a'. Homogenous coordinates. Modified.
+	 * @param foundInA (Output) Found 3D position of the point in reference frame 'a'. Homogeneous coordinates. Modified.
 	 */
 	public void triangulate( Point3D_F64 a, Point3D_F64 b, Se3_F64 a_to_b, Point4D_F64 foundInA ) {
 		// b_to_a = R'*(X_b-T)=X_a

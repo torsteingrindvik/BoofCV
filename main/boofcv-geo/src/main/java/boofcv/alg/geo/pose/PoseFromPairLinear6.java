@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -99,16 +99,16 @@ public class PoseFromPairLinear6 {
 	 * must be known. Feature locations are in calibrated image coordinates.
 	 *
 	 * @param observations List of pixel or normalized image coordinate observations
-	 * @param locations List of object locations in homogenous coordinates. One for each observation pair.
+	 * @param locations List of object locations in homogeneous coordinates. One for each observation pair.
 	 */
-	public boolean processHomogenous( List<AssociatedPair> observations, List<Point4D_F64> locations ) {
+	public boolean processHomogeneous( List<AssociatedPair> observations, List<Point4D_F64> locations ) {
 		if (observations.size() != locations.size())
 			throw new IllegalArgumentException("Number of observations and locations must match.");
 
 		if (observations.size() < 6)
 			throw new IllegalArgumentException("At least (if not more than) six points are required.");
 
-		setupHomogenousA(observations, locations);
+		setupHomogeneousA(observations, locations);
 
 		if (!solveNullspace.process(A, 1, P))
 			return false;
@@ -174,7 +174,7 @@ public class PoseFromPairLinear6 {
 		}
 	}
 
-	private void setupHomogenousA( List<AssociatedPair> observations, List<Point4D_F64> locations ) {
+	private void setupHomogeneousA( List<AssociatedPair> observations, List<Point4D_F64> locations ) {
 		A.reshape(2*observations.size(), 12, false);
 
 		for (int i = 0; i < observations.size(); i++) {

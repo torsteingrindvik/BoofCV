@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -81,7 +81,7 @@ public class WrapVisOdomDualTrackPnP<T extends ImageGray<T>> implements StereoVi
 	@Override
 	public boolean getTrackWorld3D( int index, Point3D_F64 world ) {
 		VisOdomDualTrackPnP.TrackInfo info = visualOdometry.getVisibleTracks().get(index);
-		PerspectiveOps.homogenousTo3dPositiveZ(info.worldLoc, 1e8, 1e-8, world);
+		PerspectiveOps.homogeneousTo3dPositiveZ(info.worldLoc, 1e8, 1e-8, world);
 		return true;
 	}
 

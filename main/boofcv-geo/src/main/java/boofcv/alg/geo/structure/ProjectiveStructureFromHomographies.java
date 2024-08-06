@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -228,7 +228,7 @@ public class ProjectiveStructureFromHomographies {
 					throw new IllegalArgumentException("Feature index outside of bounds. Must be from 0 to " + (totalFeatures - 1));
 
 				GeometryMath_F64.mult(H, p.p, tmp);
-				// Homogenous coordinates are scale invariant. A scale
+				// Homogeneous coordinates are scale invariant. A scale
 				// needs to be picked for consistency. I picked the largest x or y value
 				double m = Math.max(Math.abs(tmp.x), Math.abs(tmp.y));
 				if (m == 0) m = 1;

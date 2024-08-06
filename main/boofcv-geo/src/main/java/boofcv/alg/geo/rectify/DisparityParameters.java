@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -88,13 +88,13 @@ public class DisparityParameters {
 	}
 
 	/**
-	 * Give a pixel coordinate and raw disparity value, compute its homogenous location. This can handle
+	 * Give a pixel coordinate and raw disparity value, compute its homogeneous location. This can handle
 	 * points at infinity.
 	 *
 	 * @param pixelX Pixel coordinate x-axis
 	 * @param pixelY Pixel coordinate y-axis
 	 * @param value Raw disparity value. DO NOT ADD MIN.
-	 * @param location (Output) Computed homogenous coordinate
+	 * @param location (Output) Computed homogeneous coordinate
 	 * @return true if successful
 	 */
 	public boolean pixelToLeft4D( double pixelX, double pixelY, double value, Point4D_F64 location ) {

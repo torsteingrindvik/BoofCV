@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -50,8 +50,8 @@ class TestBundleAdjustmentMetricResidualFunction extends BoofStandardJUnit {
 		multipleCalls(false, false, true);
 	}
 
-	void multipleCalls( boolean homogenous, boolean hasRigid, boolean hasRelative ) {
-		SceneStructureMetric structure = createScene(rand, homogenous, hasRigid, hasRelative);
+	void multipleCalls( boolean homogeneous, boolean hasRigid, boolean hasRelative ) {
+		SceneStructureMetric structure = createScene(rand, homogeneous, hasRigid, hasRelative);
 		SceneObservations obs = createObservations(rand, structure);
 
 		var param = new double[structure.getParameterCount()];
@@ -78,8 +78,8 @@ class TestBundleAdjustmentMetricResidualFunction extends BoofStandardJUnit {
 		changeInParamChangesOutput(false);
 	}
 
-	void changeInParamChangesOutput( boolean homogenous ) {
-		SceneStructureMetric structure = createScene(rand, homogenous, false, false);
+	void changeInParamChangesOutput( boolean homogeneous ) {
+		SceneStructureMetric structure = createScene(rand, homogeneous, false, false);
 		var param = new double[structure.getParameterCount()];
 
 		new CodecSceneStructureMetric().encode(structure, param);
@@ -120,8 +120,8 @@ class TestBundleAdjustmentMetricResidualFunction extends BoofStandardJUnit {
 		chainedRelativeViews(false);
 	}
 
-	void chainedRelativeViews( boolean homogenous ) {
-		SceneStructureMetric structure = createScene(rand, homogenous, false, false);
+	void chainedRelativeViews( boolean homogeneous ) {
+		SceneStructureMetric structure = createScene(rand, homogeneous, false, false);
 		// Make each view be relative to the previous view
 		structure.views.forIdx(( i, v ) -> v.parent = i > 0 ? structure.views.data[i - 1] : null);
 
@@ -166,8 +166,8 @@ class TestBundleAdjustmentMetricResidualFunction extends BoofStandardJUnit {
 		cameraState(false);
 	}
 
-	void cameraState( boolean homogenous ) {
-		SceneStructureMetric structure = createSceneZoomState(rand, homogenous);
+	void cameraState( boolean homogeneous ) {
+		SceneStructureMetric structure = createSceneZoomState(rand, homogeneous);
 		SceneObservations observations = createObservations(rand, structure);
 
 		// Add the camera state to all observation views

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -66,7 +66,7 @@ public class DecomposeEssential {
 	DMatrixRMaj W = new DMatrixRMaj(3, 3);
 
 	/**
-	 * Essential matrix can be viewed as a homogenous quantity (scale invariant) or not. If Viewed as the former then
+	 * Essential matrix can be viewed as a homogeneous quantity (scale invariant) or not. If Viewed as the former then
 	 * this is the length of the translation vector
 	 */
 	@Getter double translationLength;

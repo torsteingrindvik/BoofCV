@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -35,8 +35,8 @@ public class ConfigBundleUtils implements Configuration {
 	/** Toggles on and off scaling parameters */
 	public boolean scale = false;
 
-	/** Should it use homogenous coordinates for points or 3D Cartesian? */
-	public boolean homogenous = true;
+	/** Should it use homogeneous coordinates for points or 3D Cartesian? */
+	public boolean homogeneous = true;
 
 	/** Optional second pass where outliers observations. Fraction specifies that the best X fraction are kept. */
 	public double keepFraction = 1.0;
@@ -53,7 +53,7 @@ public class ConfigBundleUtils implements Configuration {
 	public ConfigBundleUtils setTo( ConfigBundleUtils src ) {
 		this.converge.setTo(src.converge);
 		this.scale = src.scale;
-		this.homogenous = src.homogenous;
+		this.homogeneous = src.homogeneous;
 		this.keepFraction = src.keepFraction;
 		this.triangulation.setTo(src.triangulation);
 		return this;

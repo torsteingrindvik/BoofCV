@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -99,7 +99,7 @@ public class ColorizeCloudFromImage<T extends ImageBase<T>> {
 	 * Colorizes all the points in the specified range using the specified image.
 	 *
 	 * @param image (Input) Which image is being considered
-	 * @param cloud (Input) The point cloud in homogenous coordinates
+	 * @param cloud (Input) The point cloud in homogeneous coordinates
 	 * @param idx0 (Input) The first point in the point cloud that's inside this image. Inclusive.
 	 * @param idx1 (Input) The last point in the point cloud that's inside this image. Exclusive.
 	 * @param world_to_view (Input) Transform from world (cloud) into this image/view.

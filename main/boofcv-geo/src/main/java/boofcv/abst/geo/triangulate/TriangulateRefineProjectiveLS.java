@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -32,7 +32,7 @@ import org.ejml.data.DMatrixRMaj;
 import java.util.List;
 
 /**
- * Nonlinear least-squares triangulation for projective geometry in homogenous coordinates.
+ * Nonlinear least-squares triangulation for projective geometry in homogeneous coordinates.
  *
  * @author Peter Abeles
  */

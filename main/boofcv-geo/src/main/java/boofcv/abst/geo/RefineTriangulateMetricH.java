@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -25,7 +25,7 @@ import georegression.struct.se.Se3_F64;
 import java.util.List;
 
 /**
- * Refines a triangulated point's (homogenous coordinate) location using non-linear optimization. A calibrated
+ * Refines a triangulated point's (homogeneous coordinate) location using non-linear optimization. A calibrated
  * camera is assumed. All observations are in normalized image coordinates.
  *
  * @author Peter Abeles
@@ -37,8 +37,8 @@ public interface RefineTriangulateMetricH {
 	 *
 	 * @param observations Observations of feature in N views. Normalized image coordinates.
 	 * @param listWorldToView Coordinate transforms for each view. World to View.
-	 * @param worldPt Initial estimate of point in world coordinates. Homogenous.
-	 * @param refinedPt The refined estimated point position. Homogenous.
+	 * @param worldPt Initial estimate of point in world coordinates. Homogeneous.
+	 * @param refinedPt The refined estimated point position. Homogeneous.
 	 * @return if successful or not
 	 */
 	boolean process( List<Point2D_F64> observations,

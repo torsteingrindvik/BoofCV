@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -180,7 +180,7 @@ public abstract class GenericBundleAdjustmentMetricChecks extends BoofStandardJU
 		PointIndex2D_F64 o = new PointIndex2D_F64();
 		Point2D_F64 predicted = new Point2D_F64();
 
-		if (structure.homogenous) {
+		if (structure.homogeneous) {
 			Point4D_F64 p4 = new Point4D_F64();
 			Point3D_F64 p3 = new Point3D_F64();
 			for (int viewIndex = 0; viewIndex < observations.views.size; viewIndex++) {
@@ -222,9 +222,9 @@ public abstract class GenericBundleAdjustmentMetricChecks extends BoofStandardJU
 	public static void assertEquals( SceneStructureMetric a, SceneStructureMetric b,
 									 double tolCamera, double tolDistance, double tolRotation ) {
 
-		Assertions.assertEquals(a.homogenous, b.homogenous);
+		Assertions.assertEquals(a.homogeneous, b.homogeneous);
 
-		if (a.homogenous) {
+		if (a.homogeneous) {
 //			Point4D_F64 pa = new Point4D_F64();
 //			Point4D_F64 pb = new Point4D_F64();
 

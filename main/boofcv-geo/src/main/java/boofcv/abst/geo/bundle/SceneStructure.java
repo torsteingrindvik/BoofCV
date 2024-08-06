@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2018, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -25,11 +25,11 @@ package boofcv.abst.geo.bundle;
  */
 public interface SceneStructure {
 	/**
-	 * If true then homogenous coordinates are being used.
+	 * If true then homogeneous coordinates are being used.
 	 *
-	 * @return true if homogenous coordinates
+	 * @return true if homogeneous coordinates
 	 */
-	boolean isHomogenous();
+	boolean isHomogeneous();
 
 	int getParameterCount();
 }

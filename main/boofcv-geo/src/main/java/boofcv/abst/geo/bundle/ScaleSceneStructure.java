@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -31,10 +31,10 @@ import org.ejml.dense.row.CommonOps_DDRM;
 
 /**
  * Normalizes variables in the scene to improve optimization performance. Different normalization is applied
- * depending on the points being homogenous or not, metric or projective.
+ * depending on the points being homogeneous or not, metric or projective.
  *
  * <p>
- * Homogenous:<br>
+ * Homogeneous:<br>
  * Each point is normalized such that the F-norm is equal to 1. Same goes for translation if metric.
  * </p>
  * <p>
@@ -92,8 +92,8 @@ public class ScaleSceneStructure {
 	public void applyScale( SceneStructureMetric structure,
 							SceneObservations observations ) {
 
-		if (structure.homogenous) {
-			applyScaleToPointsHomogenous(structure);
+		if (structure.homogeneous) {
+			applyScaleToPointsHomogeneous(structure);
 		} else {
 			computePointStatistics(structure.points);
 			applyScaleToPoints3D(structure);
@@ -111,8 +111,8 @@ public class ScaleSceneStructure {
 	 */
 	public void applyScale( SceneStructureProjective structure,
 							SceneObservations observations ) {
-		if (structure.homogenous) {
-			applyScaleToPointsHomogenous(structure);
+		if (structure.homogeneous) {
+			applyScaleToPointsHomogeneous(structure);
 		} else {
 			computePointStatistics(structure.points);
 			applyScaleToPoints3D(structure);
@@ -278,7 +278,7 @@ public class ScaleSceneStructure {
 	public void undoScale( SceneStructureMetric structure,
 						   SceneObservations observations ) {
 
-		if (structure.homogenous)
+		if (structure.homogeneous)
 			return;
 
 		double scale = desiredDistancePoint/medianDistancePoint;
@@ -312,7 +312,7 @@ public class ScaleSceneStructure {
 	public void undoScale( SceneStructureProjective structure,
 						   SceneObservations observations ) {
 
-		if (!structure.homogenous) {
+		if (!structure.homogeneous) {
 
 			double scale = desiredDistancePoint/medianDistancePoint;
 
@@ -388,7 +388,7 @@ public class ScaleSceneStructure {
 		}
 	}
 
-	void applyScaleToPointsHomogenous( SceneStructureCommon structure ) {
+	void applyScaleToPointsHomogeneous( SceneStructureCommon structure ) {
 
 		Point4D_F64 p = new Point4D_F64();
 		for (int i = 0; i < structure.points.size; i++) {

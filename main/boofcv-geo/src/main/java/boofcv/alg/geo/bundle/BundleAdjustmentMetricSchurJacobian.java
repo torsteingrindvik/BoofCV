@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -62,7 +62,7 @@ public abstract class BundleAdjustmentMetricSchurJacobian<M extends DMatrix>
 	// total number of parameters being optimized
 	private int numParameters;
 
-	// length of a 3D point. 3 = regular, 4 = homogenous
+	// length of a 3D point. 3 = regular, 4 = homogeneous
 	private int lengthPoint;
 
 	/** Specifies method to parameterize rotations, i.e. Rodrigues to SO3 */
@@ -129,7 +129,7 @@ public abstract class BundleAdjustmentMetricSchurJacobian<M extends DMatrix>
 		this.structure = structure;
 		this.observations = observations;
 
-		if (!structure.isHomogenous()) {
+		if (!structure.isHomogeneous()) {
 			lengthPoint = 3;
 		} else {
 			lengthPoint = 4;
@@ -261,7 +261,7 @@ public abstract class BundleAdjustmentMetricSchurJacobian<M extends DMatrix>
 			int featureIndex = obsView.point.get(i);
 			int columnOfPointInJac = featureIndex*lengthPoint;
 
-			if (structure.isHomogenous()) {
+			if (structure.isHomogeneous()) {
 				worldPt4.x = input[columnOfPointInJac];
 				worldPt4.y = input[columnOfPointInJac + 1];
 				worldPt4.z = input[columnOfPointInJac + 2];
@@ -295,7 +295,7 @@ public abstract class BundleAdjustmentMetricSchurJacobian<M extends DMatrix>
 						false, null, null);
 			}
 			//============ Partial of worldPt
-			if (structure.isHomogenous()) {
+			if (structure.isHomogeneous()) {
 				partialPointH(leftPoint, rightView, strView, columnOfPointInJac);
 			} else {
 				partialPoint3(leftPoint, rightView, strView, columnOfPointInJac);
@@ -387,7 +387,7 @@ public abstract class BundleAdjustmentMetricSchurJacobian<M extends DMatrix>
 			SceneStructureMetric.Rigid rigid = structure.rigids.get(rigidIndex);
 			int pointIndex = featureIndex - rigid.indexFirst; // index of point in rigid body
 
-			if (structure.isHomogenous()) {
+			if (structure.isHomogeneous()) {
 				rigid.getPoint(pointIndex, rigidPt4);
 				SePointOps_F64.transform(rigid.object_to_world, rigidPt4, worldPt4);
 				SePointOps_F64.transformV(world_to_view, worldPt4, cameraPt);
@@ -417,7 +417,7 @@ public abstract class BundleAdjustmentMetricSchurJacobian<M extends DMatrix>
 			}
 
 			//============ Partial of world to view
-			if (structure.isHomogenous()) {
+			if (structure.isHomogeneous()) {
 				partialViewSE3(rightView, view, worldPt4.x, worldPt4.y, worldPt4.z, worldPt4.w);
 			} else {
 				partialViewSE3(rightView, view, worldPt3.x, worldPt3.y, worldPt3.z, 1);
@@ -430,7 +430,7 @@ public abstract class BundleAdjustmentMetricSchurJacobian<M extends DMatrix>
 			// partial R1 is R2*(@R1*X)
 			// partial T1 is R2*(@T1)
 			if (!rigid.known) {
-				if (structure.isHomogenous()) {
+				if (structure.isHomogeneous()) {
 					partialRigidSE3(leftPoint, rigidIndex, rigidPt4.x, rigidPt4.y, rigidPt4.z, rigidPt4.w);
 				} else {
 					partialRigidSE3(leftPoint, rigidIndex, rigidPt3.x, rigidPt3.y, rigidPt3.z, 1);

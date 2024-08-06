@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -93,7 +93,7 @@ public class StitchingFromMotion2D<I extends ImageBase<I>, IT extends Invertible
 	 *
 	 * @param motion Estimates image motion
 	 * @param distorter Applies found transformation to stitch images
-	 * @param converter Converts internal model into a homogenous transformation
+	 * @param converter Converts internal model into a homogeneous transformation
 	 * @param maxJumpFraction If the view area changes by more than this fraction a fault is declared
 	 */
 	public StitchingFromMotion2D( ImageMotion2D<I, IT> motion,

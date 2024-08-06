@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -71,7 +71,7 @@ public class FactorySceneReconstruction {
 		if (config == null)
 			config = new ConfigBundleUtils();
 
-		var alg = new MetricBundleAdjustmentUtils(config.triangulation, config.homogenous);
+		var alg = new MetricBundleAdjustmentUtils(config.triangulation, config.homogeneous);
 		alg.configConverge.setTo(config.converge);
 		alg.configScale = config.scale;
 		alg.keepFraction = config.keepFraction;

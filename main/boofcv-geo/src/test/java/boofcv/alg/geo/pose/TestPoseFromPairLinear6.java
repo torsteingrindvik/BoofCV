@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023, Peter Abeles. All Rights Reserved.
+ * Copyright (c) 2024, Peter Abeles. All Rights Reserved.
  *
  * This file is part of BoofCV (http://boofcv.org).
  *
@@ -69,13 +69,13 @@ class TestPoseFromPairLinear6 extends BoofStandardJUnit {
 	}
 
 	@Nested
-	class Projective extends ChecksMotionNPointHomogenous
+	class Projective extends ChecksMotionNPointHomogeneous
 	{
 		@Override
 		public DMatrixRMaj compute(List<AssociatedPair> obs, List<Point4D_F64> locations) {
 			PoseFromPairLinear6 alg = new PoseFromPairLinear6();
 
-			alg.processHomogenous(obs,locations);
+			alg.processHomogeneous(obs,locations);
 
 			return alg.getProjective();
 		}
