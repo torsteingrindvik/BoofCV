@@ -49,7 +49,7 @@ import kotlin.math.roundToInt
  */
 abstract class CameraProcessFragment : Fragment() {
     /** Used to adjust how it captures images. Affects quality and speed */
-    private var captureRequestTemplateType = CameraDevice.TEMPLATE_RECORD
+    protected var captureRequestTemplateType = CameraDevice.TEMPLATE_RECORD
 
     /** Data structures for each camera and capture surface */
     protected val cameraDevices = HashMap<CameraID, DeviceSurfaces>()
@@ -92,7 +92,7 @@ abstract class CameraProcessFragment : Fragment() {
                 for (reader in cam.readers) {
                     reader.close()
                 }
-            } catch( e: IllegalStateException) {
+            } catch (e: IllegalStateException) {
                 Log.e(TAG, "Failed to close a camera", e)
             }
         }
@@ -262,7 +262,7 @@ abstract class CameraProcessFragment : Fragment() {
      * Starts a [CameraCaptureSession] and returns the configured session (as the result of the
      * suspend coroutine
      */
-    private suspend fun createCaptureSession(cameraID: CameraID, camera: DeviceSurfaces):
+    protected suspend fun createCaptureSession(cameraID: CameraID, camera: DeviceSurfaces):
             CameraCaptureSession = suspendCoroutine { cont ->
 
         // Configure it so it can point a camera inside a multi-camera system

@@ -195,6 +195,12 @@ abstract class ImageProcessingFragment : CameraProcessFragment() {
                 initializeCameraCoordinates(cameraID, right - left, bottom - top, rotation)
             }
 
+            // If the device already exists, don't create it again and crash
+            // NOTE: If the resolution changed this might not be the correct behavior
+            val device = cameraDevices[cameraID]
+            if (device != null && device.session != null)
+                return@addOnLayoutChangeListener
+
             // Add image processor for computer vision stream
             val reader = addCameraProcessor(
                 cameraID,
@@ -319,8 +325,8 @@ abstract class ImageProcessingFragment : CameraProcessFragment() {
             setWillNotDraw(false)
         }
 
-        override fun onDraw(canvas: Canvas?) {
-            onDrawFrame(this, canvas!!)
+        override fun onDraw(canvas: Canvas) {
+            onDrawFrame(this, canvas)
         }
 
         override fun surfaceCreated(holder: SurfaceHolder) {}
