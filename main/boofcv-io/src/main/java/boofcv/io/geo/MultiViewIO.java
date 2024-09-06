@@ -252,7 +252,7 @@ public class MultiViewIO {
 		data.put("rigids", rigids);
 		data.put("cameras", cameras);
 		data.put("points", points);
-		data.put("homogeneous", scene.isHomogeneous());
+		data.put("homogenous", scene.isHomogeneous()); // deliberate type-o for backwards compatibility
 		data.put("data_type", "SceneStructureMetric");
 		data.put("version", 0);
 
@@ -464,7 +464,7 @@ public class MultiViewIO {
 		Map<String, Object> data = yaml.load(reader);
 		try {
 			reader.close();
-			boolean homogeneous = getOrThrow(data, "homogeneous");
+			boolean homogeneous = getOrThrow(data, "homogenous"); // type-o for backwards compatibility
 
 			List<Map<String, Object>> yamlViews = getOrThrow(data, "views");
 			List<Map<String, Object>> yamlMotions = getOrThrow(data, "motions");
