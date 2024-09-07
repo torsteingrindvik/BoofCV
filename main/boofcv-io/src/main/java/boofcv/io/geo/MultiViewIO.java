@@ -59,8 +59,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public class MultiViewIO {
 
 	public static void save( LookUpSimilarImages db, String path ) {
-		try {
-			Writer writer = new OutputStreamWriter(new FileOutputStream(path), UTF_8);
+		try (var writer = new OutputStreamWriter(new FileOutputStream(path), UTF_8)) {
 			save(db, writer);
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
@@ -74,7 +73,7 @@ public class MultiViewIO {
 	 * @param outputWriter (Output) where the graph is writen to
 	 */
 	public static void save( LookUpSimilarImages db, Writer outputWriter ) {
-		PrintWriter out = new PrintWriter(outputWriter);
+		var out = new PrintWriter(outputWriter);
 
 		Yaml yaml = createYmlObject();
 
@@ -152,8 +151,7 @@ public class MultiViewIO {
 	}
 
 	public static void save( PairwiseImageGraph graph, String path ) {
-		try {
-			Writer writer = new OutputStreamWriter(new FileOutputStream(path), UTF_8);
+		try (var writer = new OutputStreamWriter(new FileOutputStream(path), UTF_8)) {
 			save(graph, writer);
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
@@ -167,7 +165,7 @@ public class MultiViewIO {
 	 * @param outputWriter (Output) where the graph is writen to
 	 */
 	public static void save( PairwiseImageGraph graph, Writer outputWriter ) {
-		PrintWriter out = new PrintWriter(outputWriter);
+		var out = new PrintWriter(outputWriter);
 
 		Yaml yaml = createYmlObject();
 
@@ -208,13 +206,10 @@ public class MultiViewIO {
 		data.put("version", 0);
 
 		yaml.dump(data, out);
-
-		out.close();
 	}
 
 	public static void save( SceneStructureMetric scene, String path ) {
-		try {
-			Writer writer = new OutputStreamWriter(new FileOutputStream(path), UTF_8);
+		try (var writer = new OutputStreamWriter(new FileOutputStream(path), UTF_8)) {
 			save(scene, writer);
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
@@ -228,7 +223,7 @@ public class MultiViewIO {
 	 * @param outputWriter (Output) where the scene is writen to
 	 */
 	public static void save( SceneStructureMetric scene, Writer outputWriter ) {
-		PrintWriter out = new PrintWriter(outputWriter);
+		var out = new PrintWriter(outputWriter);
 
 		Yaml yaml = createYmlObject();
 
@@ -257,8 +252,6 @@ public class MultiViewIO {
 		data.put("version", 0);
 
 		yaml.dump(data, out);
-
-		out.close();
 	}
 
 	/**
@@ -287,8 +280,6 @@ public class MultiViewIO {
 		data.put("version", 0);
 
 		yaml.dump(data, out);
-
-		out.close();
 	}
 
 	public static void save( SceneObservations scene, File destination ) {
@@ -301,7 +292,7 @@ public class MultiViewIO {
 
 	private static Map<String, Object> encodeSceneView( SceneStructureMetric scene,
 														SceneStructureMetric.View v ) {
-		Map<String, Object> encoded = new HashMap<>();
+		var encoded = new HashMap<String, Object>();
 		encoded.put("camera", v.camera);
 		encoded.put("parent_to_view", v.parent_to_view);
 		if (v.parent != null)
@@ -310,14 +301,14 @@ public class MultiViewIO {
 	}
 
 	private static Map<String, Object> encodeSceneMotion( SceneStructureMetric.Motion m ) {
-		Map<String, Object> encoded = new HashMap<>();
+		var encoded = new HashMap<String, Object>();
 		encoded.put("known", m.known);
 		encoded.put("motion", putSE3(m.parent_to_view));
 		return encoded;
 	}
 
 	private static Map<String, Object> encodeSceneRigid( SceneStructureMetric.Rigid r ) {
-		Map<String, Object> encoded = new HashMap<>();
+		var encoded = new HashMap<String, Object>();
 		encoded.put("known", r.known);
 		encoded.put("object_to_world", putSE3(r.object_to_world));
 		encoded.put("indexFirst", r.indexFirst);
@@ -331,14 +322,14 @@ public class MultiViewIO {
 	}
 
 	private static Map<String, Object> encodeScenePoint( SceneStructureCommon.Point p ) {
-		Map<String, Object> encoded = new HashMap<>();
+		var encoded = new HashMap<String, Object>();
 		encoded.put("coordinate", p.coordinate);
 		encoded.put("views", p.views.toArray());
 		return encoded;
 	}
 
 	private static Map<String, Object> encodeObservationView( SceneObservations.View v ) {
-		Map<String, Object> encoded = new HashMap<>();
+		var encoded = new HashMap<String, Object>();
 		encoded.put("point", v.point.toArray());
 		encoded.put("observations", v.observations.toArray());
 		if (v.cameraState != null) {
@@ -443,8 +434,7 @@ public class MultiViewIO {
 	}
 
 	public static SceneStructureMetric load( String path, @Nullable SceneStructureMetric graph ) {
-		try {
-			Reader reader = new InputStreamReader(new FileInputStream(path), UTF_8);
+		try (var reader = new InputStreamReader(new FileInputStream(path), UTF_8)) {
 			return load(reader, graph);
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
@@ -522,8 +512,7 @@ public class MultiViewIO {
 	}
 
 	public static SceneObservations load( String path, @Nullable SceneObservations graph ) {
-		try {
-			Reader reader = new InputStreamReader(new FileInputStream(path), UTF_8);
+		try (var reader = new InputStreamReader(new FileInputStream(path), UTF_8)) {
 			return load(reader, graph);
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
@@ -585,8 +574,7 @@ public class MultiViewIO {
 	}
 
 	public static LookUpSimilarImages loadSimilarImages( String path ) {
-		try {
-			Reader reader = new InputStreamReader(new FileInputStream(path), UTF_8);
+		try (Reader reader = new InputStreamReader(new FileInputStream(path), UTF_8)) {
 			return loadSimilarImages(reader);
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
@@ -657,8 +645,7 @@ public class MultiViewIO {
 	}
 
 	public static PairwiseImageGraph load( String path, @Nullable PairwiseImageGraph graph ) {
-		try {
-			Reader reader = new InputStreamReader(new FileInputStream(path), UTF_8);
+		try (Reader reader = new InputStreamReader(new FileInputStream(path), UTF_8)) {
 			return load(reader, graph);
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
@@ -743,8 +730,7 @@ public class MultiViewIO {
 	}
 
 	public static void save( SceneWorkingGraph working, String path ) {
-		try {
-			Writer writer = new OutputStreamWriter(new FileOutputStream(path), UTF_8);
+		try (var writer = new OutputStreamWriter(new FileOutputStream(path), UTF_8)) {
 			save(working, writer);
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
@@ -802,8 +788,7 @@ public class MultiViewIO {
 	}
 
 	public static SceneWorkingGraph load( String path, PairwiseImageGraph pairwise, @Nullable SceneWorkingGraph working ) {
-		try {
-			Reader reader = new InputStreamReader(new FileInputStream(path), UTF_8);
+		try (var reader = new InputStreamReader(new FileInputStream(path), UTF_8)) {
 			return load(reader, pairwise, working);
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
@@ -863,7 +848,7 @@ public class MultiViewIO {
 	}
 
 	public static List<Object> putInlierInfo( FastAccess<InlierInfo> listInliers ) {
-		List<Object> list = new ArrayList<>();
+		var list = new ArrayList<Object>();
 		for (int infoIdx = 0; infoIdx < listInliers.size; infoIdx++) {
 			InlierInfo inliers = listInliers.get(infoIdx);
 
@@ -932,7 +917,7 @@ public class MultiViewIO {
 	}
 
 	public static Map<String, Object> putPinholeSimplified( BundlePinholeSimplified intrinsic ) {
-		Map<String, Object> map = new HashMap<>();
+		var map = new HashMap<String, Object>();
 
 		map.put("f", intrinsic.f);
 		map.put("k1", intrinsic.k1);
@@ -942,7 +927,7 @@ public class MultiViewIO {
 	}
 
 	public static Map<String, Object> putSE3( Se3_F64 m ) {
-		Map<String, Object> map = new HashMap<>();
+		var map = new HashMap<String, Object>();
 
 		map.put("x", m.T.x);
 		map.put("y", m.T.y);
