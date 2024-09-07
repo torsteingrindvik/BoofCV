@@ -40,10 +40,7 @@ import org.ejml.dense.row.MatrixFeatures_DDRM;
 import org.ejml.dense.row.RandomMatrices_DDRM;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -318,6 +315,30 @@ class TestMultiViewIO extends BoofStandardJUnit {
 			var input = new ByteArrayInputStream(output.toByteArray());
 			SceneStructureMetric found = MultiViewIO.load(new InputStreamReader(input, UTF_8), (SceneStructureMetric)null);
 			assertTrue(expected.isIdentical(found, UtilEjml.TEST_F64));
+		}
+	}
+
+	/** Test backwards compatibility by loading an older saved file */
+	@Test void backwards_SceneStructureMetric() {
+		try (var input = getClass().getResource("scene_metric.yaml").openStream()) {
+			SceneStructureMetric found = MultiViewIO.load(new InputStreamReader(input, UTF_8), (SceneStructureMetric)null);
+
+			// basic sanity check
+			assertEquals(3, found.views.size);
+			assertEquals(2, found.motions.size);
+			assertEquals(2, found.rigids.size);
+			assertEquals(2, found.cameras.size);
+			assertEquals(4, found.points.size);
+			assertEquals(true, found.isHomogeneous());
+
+			// Check the value of one of the points
+			assertArrayEquals(new double[]{
+							0.5297796154781623, -0.14287775801607175, -0.589691194962917, 0.042599130798539914},
+					found.points.get(0).coordinate);
+
+			// this won't catch all possible errors but will catch most errors which break backwards compatibility
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
